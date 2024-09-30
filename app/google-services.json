@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "133788241310",
+    "firebase_url": "https://chamcong-a0f9d-default-rtdb.firebaseio.com",
+    "project_id": "chamcong-a0f9d",
+    "storage_bucket": "chamcong-a0f9d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133788241310:android:25d215f84c6c12f99e5a8f",
+        "android_client_info": {
+          "package_name": "com.example.chamcong"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_7S-QzA7O_xZPeN6_oT8gT93VuKGvLLw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
