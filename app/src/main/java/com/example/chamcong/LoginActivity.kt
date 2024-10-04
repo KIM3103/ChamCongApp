@@ -2,7 +2,6 @@ package com.example.chamcong
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
-
 import android.text.TextUtils
 import android.view.View
 import android.widget.*
@@ -14,6 +13,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var btnLogin: Button
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,11 +41,6 @@ class LoginActivity : AppCompatActivity() {
 
         // Firebase auth instance
         auth = FirebaseAuth.getInstance()
-
-
-
-
-
         btnLogin.setOnClickListener {
             val email = inputEmail.text.toString()
             val password = inputPassword.text.toString()
@@ -60,7 +55,6 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Enter password!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
             progressBar.visibility = View.VISIBLE
 
             // Xác thực người dùng
@@ -80,6 +74,6 @@ class LoginActivity : AppCompatActivity() {
                         finish()
                     }
                 }
-        }
+      }
     }
 }
