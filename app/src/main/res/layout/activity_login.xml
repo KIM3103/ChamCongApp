@@ -32,18 +32,18 @@
             android:textStyle="bold"
             tools:ignore="MissingConstraints" />
 
--->   <androidx.appcompat.widget.Toolbar
+-->   <!--<androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        />
+        />-->
 
         <!-- Email Input -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300px">
+            android:layout_marginTop="100px">
 
             <EditText
                 android:id="@+id/email"
@@ -52,7 +52,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="Email"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textColorHint="@android:color/white"
                 android:background="@color/white"
                 />
@@ -71,8 +71,8 @@
                 android:hint="Password"
                 android:background="@color/white"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Nút Đăng nhập -->
