@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                     val imageUrl = document.getString("picture")
 
                     // Cập nhật giao diện với dữ liệu từ Firestore
-                    tvEmail.text = "Gmail: $email"
+                    tvEmail.text = "G-mail: $email"
                     tvPhone.text = "Số điện thoại: $phone"
                     tvCCCD.text = "CCCD/CMND: $cccd"
                     tvPosition.text = "Vị trí: $position"
