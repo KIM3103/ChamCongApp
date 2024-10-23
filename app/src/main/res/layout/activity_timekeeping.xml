@@ -17,13 +17,6 @@
         android:layout_gravity="center_horizontal"
         android:paddingBottom="16dp" />
 
-    <!-- Lịch chọn ngày -->
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:calendarViewShown="true" />
-
     <!-- Ca làm việc -->
     <Spinner
         android:id="@+id/spinnerShift"
@@ -48,5 +41,20 @@
         android:layout_height="wrap_content"
         android:text="Chấm công"
         android:layout_marginTop="32dp" />
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:layout_below="@id/btnCheckIn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+    <Button
+        android:id="@+id/btnCheckOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tan Ca"
+        />
 
 </LinearLayout>
