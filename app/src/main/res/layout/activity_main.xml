@@ -58,6 +58,12 @@
         app:layout_constraintWidth_percent="0.9">
 
         <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và Tên: "
+            android:textSize="16sp" />
+        <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,6 +90,7 @@
             android:layout_height="wrap_content"
             android:text="Vị trí: "
             android:textSize="16sp" />
+
 
         <TextView
             android:id="@+id/tvGender"

@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class MainActivity : AppCompatActivity() {
     private lateinit var imgProfilePicture: ImageView
     private lateinit var tvEmail: TextView
+    private lateinit var tvName: TextView
     private lateinit var tvPhone: TextView
     private lateinit var tvCCCD: TextView
     private lateinit var tvPosition: TextView
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         tvCCCD = findViewById(R.id.tvCCCD)
         tvPosition = findViewById(R.id.tvPosition)
         tvGender = findViewById(R.id.tvGender)
+        tvName=findViewById(R.id.tvName)
         btnLogout = findViewById(R.id.btn_logout) // Liên kết nút Đăng xuất
 
         // Lấy thông tin email của người dùng đã đăng nhập
@@ -79,13 +81,14 @@ class MainActivity : AppCompatActivity() {
                     val position = document.getString("position")
                     val gender = document.getString("gender")
                     val imageUrl = document.getString("picture")
-
+                    val name = document.getString("name")
                     // Cập nhật giao diện với dữ liệu từ Firestore
                     tvEmail.text = "G-mail: $email"
                     tvPhone.text = "Số điện thoại: $phone"
                     tvCCCD.text = "CCCD/CMND: $cccd"
                     tvPosition.text = "Vị trí: $position"
                     tvGender.text = "Giới tính: $gender"
+                    tvName.text= "Họ và Tên: $name"
 
                     // Tải hình ảnh đại diện bằng Glide
                     Glide.with(this)
