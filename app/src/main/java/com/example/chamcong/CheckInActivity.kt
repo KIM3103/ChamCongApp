@@ -14,7 +14,8 @@ import java.util.*
 
 class CheckInActivity : AppCompatActivity() {
     private lateinit var tvTime: TextView
-    private lateinit var spinnerShift: Spinner
+ 
+ 
     private lateinit var btnCheckIn: Button
     private lateinit var btnCheckOut: Button
     private lateinit var tvResult: TextView
@@ -31,7 +32,7 @@ class CheckInActivity : AppCompatActivity() {
 
         // Ánh xạ các view
         tvTime = findViewById(R.id.tvTime)
-        spinnerShift = findViewById(R.id.spinnerShift)
+       
         btnCheckIn = findViewById(R.id.btnCheckIn)
         btnCheckOut = findViewById(R.id.btnCheckOut)
         tvResult = findViewById(R.id.tvResult)
