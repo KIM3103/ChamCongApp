@@ -25,12 +25,12 @@
         android:calendarViewShown="true" />
 
     <!-- Ca làm việc -->
-    <Spinner
+   <!-- <Spinner
         android:id="@+id/spinnerShift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/shift_options"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp" />-->
 
     <!-- Giờ hiện tại -->
     <TextView

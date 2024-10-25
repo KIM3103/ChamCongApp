@@ -26,13 +26,13 @@
         android:paddingBottom="16dp">
 
         <!-- Avatar -->
-        <ImageView
+       <!-- <ImageView
             android:id="@+id/imgAvatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:src="@drawable/ic_avatar_placeholder"
             android:contentDescription="Avatar nhân viên"
-            android:layout_marginEnd="16dp" />
+            android:layout_marginEnd="16dp" />-->
 
         <!-- Tên nhân viên -->
         <TextView
