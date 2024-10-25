@@ -57,6 +57,12 @@
         android:layout_marginTop="16dp">
 
         <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Họ và Tên: "
+            android:textSize="16sp" />
+        <TextView
             android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -106,11 +112,14 @@
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
+<<<<<<< HEAD
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@android:color/white"
             android:layout_marginTop="16dp" />
+=======
+>>>>>>> 17f651765f1989fd4506606068882850fe4f447f
 
         <TextView
             android:id="@+id/tvGender"
@@ -119,6 +128,41 @@
             android:text="Giới tính: "
             android:textColor="@android:color/white"
             android:textSize="16sp" />
+<<<<<<< HEAD
+=======
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+        <!--    <Button
+                android:id="@+id/btn_edit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:text="Chỉnh sửa thông tin"
+                android:textColor="@android:color/white" />-->
+
+            <Button
+                android:id="@+id/btn_change_password"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/black"
+                android:text="Đổi mật khẩu"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_logout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/black"
+            android:text="Đăng xuất"
+            android:textColor="@android:color/white" />
+>>>>>>> 17f651765f1989fd4506606068882850fe4f447f
     </LinearLayout>
 
     <Button

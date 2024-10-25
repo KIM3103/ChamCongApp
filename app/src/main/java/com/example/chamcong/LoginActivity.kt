@@ -1,4 +1,5 @@
 package com.example.chamcong
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
@@ -19,10 +20,10 @@ class LoginActivity : AppCompatActivity() {
 
         // Get Firebase auth instance
         auth = FirebaseAuth.getInstance()
-
+        auth.signOut()
         // Nếu người dùng đã đăng nhập, chuyển tiếp sang MainActivity
         if (auth.currentUser != null) {
-            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            startActivity(Intent(this@LoginActivity, CheckInActivity::class.java))
             finish()
         }
 
@@ -67,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this@LoginActivity, getString(R.string.auth_failed), Toast.LENGTH_LONG).show()
                         }
                     } else {
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        val intent = Intent(this@LoginActivity, CheckInActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
