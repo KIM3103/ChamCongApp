@@ -38,20 +38,36 @@ android {
 }
 
 dependencies {
+    // Firebase BOM to synchronize all Firebase versions
     implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+
+    // Firebase Analytics and Realtime Database
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-database")
-    implementation ("com.google.android.material:material:1.9.0")
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation(libs.firebase.auth.ktx)
-    implementation(libs.firebase.firestore.ktx)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+
+    // Google Material Design Components
+    implementation("com.google.android.material:material:1.9.0")
+
+    // AndroidX core libraries
+    implementation ("androidx.core:core:1.9.0")
+
+    implementation("androidx.core:core-ktx:1.12.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.activity:activity-ktx:1.7.2")
+
+    // Glide for image loading (if needed)
+    implementation("com.github.bumptech.glide:glide:4.12.0")
     kapt("com.github.bumptech.glide:compiler:4.12.0")
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
+
+    // Testing libraries
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // If using Firebase Authentication (optional)
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // If using Firestore (optional)
+    implementation("com.google.firebase:firebase-firestore-ktx")
 }

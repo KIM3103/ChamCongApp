@@ -1,77 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- Hàng chứa Ngày bắt đầu và Ngày kết thúc -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
-        <!-- Ngày bắt đầu -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ngày bắt đầu"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvStartDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20-9-2020" />
-        </LinearLayout>
-
-        <!-- Ngày kết thúc -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingStart="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ngày kết thúc"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvEndDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20-9-2020" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Ô nhập nội dung đơn -->
-    <EditText
-        android:id="@+id/etRequestContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nhập lý do xin nghỉ"
-        android:inputType="textMultiLine"
-        android:minLines="4"
-        android:gravity="top"
-        android:layout_marginTop="16dp" />
-
-    <!-- Button gửi đơn -->
-    <Button
-        android:id="@+id/btnSubmitRequest"
+    <!-- Tiêu đề -->
+    <TextView
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gửi đơn"
+        android:text="Đơn xin nghỉ phép"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center"
         android:layout_gravity="center"
-        android:layout_marginTop="32dp" />
+        android:paddingBottom="20dp"/>
 
-</LinearLayout>
+    <!-- Container bọc các thuộc tính -->
+
+       <!-- android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@drawable/container_background">-->
+
+        <!-- Ngày bắt đầu -->
+        <EditText
+            android:id="@+id/etStartDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày bắt đầu"
+            android:inputType="date"
+            android:padding="8dp"
+            android:minHeight="48dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Ngày kết thúc -->
+        <EditText
+            android:id="@+id/etEndDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ngày kết thúc"
+            android:inputType="date"
+            android:padding="8dp"
+            android:minHeight="48dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- CheckBox Options -->
+        <RadioGroup
+            android:id="@+id/radioGroupReasons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp">
+
+            <RadioButton
+                android:id="@+id/rbSick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bệnh"/>
+
+            <RadioButton
+                android:id="@+id/rbWork"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Công tác"/>
+
+            <RadioButton
+                android:id="@+id/rbFamily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Việc gia đình"/>
+
+            <RadioButton
+                android:id="@+id/rbOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khác"/>
+        </RadioGroup>
+
+        <!-- Ô nhập lý do khác -->
+        <EditText
+            android:id="@+id/etOtherReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nhập lý do khác"
+            android:padding="8dp"
+            android:minHeight="48dp"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- Button gửi đơn -->
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gửi đơn"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
