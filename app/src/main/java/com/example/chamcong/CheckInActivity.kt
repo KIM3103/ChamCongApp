@@ -1,5 +1,5 @@
 package com.example.chamcong
-import android.widget.ArrayAdapter
+
 
 import android.os.Bundle
 import android.widget.Button
@@ -7,7 +7,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
@@ -193,7 +192,7 @@ class CheckInActivity : AppCompatActivity() {
             "date" to currentDate,
             "checkOutTime" to currentTime,
 //            "earlyLeaveMinutes" to earlyLeaveMinutes,
-            "status" to if (earlyLeaveMinutes > 0)  "Tan ca đúng giờ dư $earlyHours giờ $earlyLeaveMinutes phút"   else "Đúng giờ"
+            "status" to if (earlyLeaveMinutes > 0)  "Tan ca sớm  $earlyHours giờ $earlyLeaveMinutes phút"   else "Đúng giờ"
         )
 
         // Lưu thông tin tan ca lên Firestore
