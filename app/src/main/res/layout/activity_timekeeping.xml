@@ -17,20 +17,26 @@
         android:layout_gravity="center_horizontal"
         android:paddingBottom="16dp" />
 
-    <!-- Lịch chọn ngày -->
-    <DatePicker
-        android:id="@+id/datePicker"
+    <TextView
+        android:id="@+id/tvPosition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:calendarViewShown="true" />
+        android:text="Vị trí: "
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Họ và Tên: "
+        android:textSize="16sp" />
 
     <!-- Ca làm việc -->
-   <!-- <Spinner
+    <Spinner
         android:id="@+id/spinnerShift"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:entries="@array/shift_options"
-        android:layout_marginTop="16dp" />-->
+        android:layout_marginTop="16dp" />
 
     <!-- Giờ hiện tại -->
     <TextView
@@ -48,5 +54,20 @@
         android:layout_height="wrap_content"
         android:text="Chấm công"
         android:layout_marginTop="32dp" />
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="16sp"
+        android:layout_below="@id/btnCheckIn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+    <Button
+        android:id="@+id/btnCheckOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tan Ca"
+        />
 
 </LinearLayout>

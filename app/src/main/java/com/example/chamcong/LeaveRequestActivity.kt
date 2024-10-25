@@ -22,6 +22,7 @@ class LeaveRequestActivity : AppCompatActivity() {
     private val currentTimestamp = System.currentTimeMillis().toString() // Get current timestamp
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private var currentUserEmail: String? = null // Class-level variable for user email
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +53,10 @@ class LeaveRequestActivity : AppCompatActivity() {
 
     private fun fetchUserDataAndSubmitLeaveRequest() {
         // Get the current user's email
-        val currentUserEmail = auth.currentUser?.email
+        currentUserEmail = auth.currentUser?.email
 
         if (currentUserEmail != null) {
-            firestore.collection("Users").document(currentUserEmail)
+            firestore.collection("Users").document(currentUserEmail!!)
                 .get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
@@ -98,10 +99,9 @@ class LeaveRequestActivity : AppCompatActivity() {
 
         // Create a LeaveRequest object with user data included
         val leaveRequest = LeaveRequest(
-            employeeId =
-            currentUserEmail, // Use email or a unique identifier
-            userName = userName,            // Add user's name
-            userPosition = userPosition,    // Add user's position
+            employeeId = currentUserEmail, // Use the class-level variable
+            userName = userName,
+            userPosition = userPosition,
             startDate = startDate,
             endDate = endDate,
             reason = reason,
@@ -113,23 +113,21 @@ class LeaveRequestActivity : AppCompatActivity() {
     }
 
     private fun sendToFirebase(leaveRequest: LeaveRequest) {
-        val database = FirebaseDatabase.getInstance()
-        val leaveRequestsRef = database.getReference("leaveRequests")
+        val firestore = FirebaseFirestore.getInstance()
 
-        // Create a unique ID for each request
-        val requestId = leaveRequestsRef.push().key
+        // Tạo một document với ID tự động
+        val leaveRequestsRef = firestore.collection("leaveRequests").document()
 
-        if (requestId != null) {
-            leaveRequestsRef.child(requestId).setValue(leaveRequest)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Leave request submitted successfully", Toast.LENGTH_SHORT).show()
-                    clearFields() // Clear input fields after submission
-                }
-                .addOnFailureListener { exception ->
-                    Toast.makeText(this, "Error submitting data: ${exception.message}", Toast.LENGTH_SHORT).show()
-                }
-        }
+        leaveRequestsRef.set(leaveRequest)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Leave request submitted successfully", Toast.LENGTH_SHORT).show()
+                clearFields() // Xóa các trường dữ liệu sau khi gửi thành công
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Error submitting data: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
     }
+
 
     // Optional: Function to clear input fields after submission
     private fun clearFields() {
@@ -140,4 +138,5 @@ class LeaveRequestActivity : AppCompatActivity() {
         etOtherReason.text.clear()
     }
 }
+
 
