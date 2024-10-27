@@ -1,9 +1,7 @@
 package com.example.chamcong
 
-
 import android.os.Bundle
 import android.widget.Button
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,8 +12,6 @@ import java.util.*
 
 class CheckInActivity : AppCompatActivity() {
     private lateinit var tvTime: TextView
- 
- 
     private lateinit var btnCheckIn: Button
     private lateinit var btnCheckOut: Button
     private lateinit var tvResult: TextView
@@ -32,7 +28,6 @@ class CheckInActivity : AppCompatActivity() {
 
         // Ánh xạ các view
         tvTime = findViewById(R.id.tvTime)
-       
         btnCheckIn = findViewById(R.id.btnCheckIn)
         btnCheckOut = findViewById(R.id.btnCheckOut)
         tvResult = findViewById(R.id.tvResult)
@@ -83,15 +78,14 @@ class CheckInActivity : AppCompatActivity() {
             val lateMinutes = calculateMinutesDifference(currentTime, fixedCheckInTime)
 
             // Lưu thông tin check-in lên Firestore
-            saveAttendanceToFirestore(userEmail, currentTime, lateMinutes)
+            saveCheckInToFirestore(userEmail, currentTime, lateMinutes)
 
             // Hiển thị kết quả chấm công và trạng thái đi làm
             val (lateHours, lateMins) = convertMinutesToHoursAndMinutes(Math.abs(lateMinutes))
             tvResult.text = if (lateMinutes > 0) {
-                "Chấm công lúc: $currentTime. Bạn đã đi làm đúng giờ."
-
+                "Chấm công lúc: $currentTime. Bạn đã đi làm muộn: $lateHours giờ $lateMins phút."
             } else {
-                "Chấm công lúc: $currentTime. Bạn đã đi làm muộn : $lateHours giờ $lateMins phút."
+                "Chấm công lúc: $currentTime. Bạn đã đi làm đúng giờ."
             }
         } else {
             tvResult.text = "Vui lòng đăng nhập"
@@ -115,17 +109,15 @@ class CheckInActivity : AppCompatActivity() {
             // Hiển thị kết quả tan ca
             val (earlyHours, earlyLeaveMins) = convertMinutesToHoursAndMinutes(Math.abs(earlyLeaveMinutes))
             tvResult.text = if (earlyLeaveMinutes > 0) {
-                "Tan ca lúc: $currentTime. Bạn đã tan ca đúng giờ."
-
-
+                "Tan ca lúc: $currentTime. Bạn đã tan ca sớm: $earlyHours giờ $earlyLeaveMins phút."
             } else {
-                "Tan ca lúc: $currentTime. Bạn đã tan ca sớm : $earlyHours giờ $earlyLeaveMins phút."
+                "Tan ca lúc: $currentTime. Bạn đã tan ca đúng giờ."
             }
         } else {
             tvResult.text = "Vui lòng đăng nhập"
         }
-
     }
+
     private fun convertMinutesToHoursAndMinutes(totalMinutes: Int): Pair<Int, Int> {
         val hours = totalMinutes / 60
         val minutes = totalMinutes % 60
@@ -151,26 +143,23 @@ class CheckInActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveAttendanceToFirestore(email: String, currentTime: String, lateMinutes: Int) {
+    private fun saveCheckInToFirestore(email: String, currentTime: String, lateMinutes: Int) {
         val currentDate = getCurrentDate()
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val lateHours = Math.abs(lateMinutes) / 60
-        val lateMinutes = Math.abs( lateMinutes) % 60
+        val lateMinutes = Math.abs(lateMinutes) % 60
 
         // Tạo một HashMap để lưu thông tin chấm công
-        val attendanceData = hashMapOf(
+        val checkInData = hashMapOf(
             "email" to email,
             "date" to currentDate,
             "checkInTime" to currentTime,
-//            "lateMinutes" to lateMinutes,
-            "status" to if (lateMinutes > 0)  "Đi trễ $lateHours giờ  $lateMinutes phút"  else  "Đúng giờ"
+            "lateStatus" to if (lateMinutes > 0) "Đi trễ $lateHours giờ $lateMinutes phút" else "Đúng giờ"
         )
 
         // Lưu thông tin chấm công lên Firestore
-        firestore.collection("Attendance")
-            .document(currentDate)
-            .collection("Records")
-            .add(attendanceData)
+        firestore.collection("CheckIn")
+            .document("$currentDate-$email") // Sử dụng kết hợp giữa ngày và email làm ID tài liệu
+            .set(checkInData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Lưu thông tin check-in thành công", Toast.LENGTH_SHORT).show()
             }
@@ -182,25 +171,21 @@ class CheckInActivity : AppCompatActivity() {
 
     private fun saveCheckOutToFirestore(email: String, currentTime: String, earlyLeaveMinutes: Int) {
         val currentDate = getCurrentDate()
-
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-
-        val earlyHours = Math.abs(earlyLeaveMinutes)/ 60
+        val earlyHours = Math.abs(earlyLeaveMinutes) / 60
         val earlyLeaveMinutes = Math.abs(earlyLeaveMinutes) % 60
+
         // Tạo một HashMap để lưu thông tin tan ca
         val checkOutData = hashMapOf(
             "email" to email,
             "date" to currentDate,
             "checkOutTime" to currentTime,
-//            "earlyLeaveMinutes" to earlyLeaveMinutes,
-            "status" to if (earlyLeaveMinutes > 0)  "Tan ca sớm  $earlyHours giờ $earlyLeaveMinutes phút"   else "Đúng giờ"
+            "earlyLeaveStatus" to if (earlyLeaveMinutes > 0) "Tan ca sớm $earlyHours giờ $earlyLeaveMinutes phút" else "Đúng giờ"
         )
 
         // Lưu thông tin tan ca lên Firestore
-        firestore.collection("Attendance")
-            .document(currentDate)
-            .collection("CheckOutRecords")
-            .add(checkOutData)
+        firestore.collection("CheckOut")
+            .document("$currentDate-$email") // Sử dụng kết hợp giữa ngày và email làm ID tài liệu
+            .set(checkOutData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Lưu thông tin tan ca thành công", Toast.LENGTH_SHORT).show()
             }

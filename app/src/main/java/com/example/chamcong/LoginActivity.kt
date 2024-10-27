@@ -8,6 +8,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import org.checkerframework.checker.units.qual.C
+
 class LoginActivity : AppCompatActivity() {
     private lateinit var inputEmail: EditText
     private lateinit var inputPassword: EditText
@@ -23,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signOut()
         // Nếu người dùng đã đăng nhập, chuyển tiếp sang MainActivity
         if (auth.currentUser != null) {
-            startActivity(Intent(this@LoginActivity, CheckInActivity::class.java))
+            startActivity(Intent(this@LoginActivity, CheckoutListActivity::class.java))
             finish()
         }
 
@@ -68,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this@LoginActivity, getString(R.string.auth_failed), Toast.LENGTH_LONG).show()
                         }
                     } else {
-                        val intent = Intent(this@LoginActivity, CheckInActivity::class.java)
+                        val intent = Intent(this@LoginActivity, CheckoutListActivity::class.java)
                         startActivity(intent)
                         finish()
                     }

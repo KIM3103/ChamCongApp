@@ -32,7 +32,13 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
+            android:name=".AttendanceListActivity"
+            android:exported="true" />
+        <activity
             android:name=".CheckInActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CheckoutListActivity"
             android:exported="true" />
         <activity
             android:name=".LeaveRequestActivity"
