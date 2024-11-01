@@ -25,16 +25,16 @@ class UserAttendanceHistoryActivity : AppCompatActivity() {
         listView.adapter = adapter
 
         db = FirebaseFirestore.getInstance()
-        loadCheckInRecords() // Load check-in records
+        loadAttendanceRecords() // Load check-in records only
     }
 
-    private fun loadCheckInRecords() {
+    private fun loadAttendanceRecords() {
         // Get the current user's email
         val userEmail = FirebaseAuth.getInstance().currentUser?.email
 
         // Check if the user is authenticated
         if (userEmail != null) {
-            // Fetch records from Firestore for the specific user
+            // Fetch check-in records from Firestore for the specific user
             val attendanceRef = db.collection("CheckIn").whereEqualTo("email", userEmail)
 
             // Get all documents matching the query
@@ -46,8 +46,8 @@ class UserAttendanceHistoryActivity : AppCompatActivity() {
                         val email = record.getString("email") ?: ""
                         val status = record.getString("lateStatus") ?: ""
 
-                        // Add the record to the history list
-                        historyList.add(AttendanceRecord(checkInTime, date, email, status))
+                        // Add the check-in record to the history list
+                        historyList.add(AttendanceRecord(checkInTime = checkInTime, date = date, email = email, status = status))
                     }
                     adapter.notifyDataSetChanged() // Notify the adapter to refresh the ListView
                 } else {

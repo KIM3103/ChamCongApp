@@ -42,10 +42,10 @@ class UserCheckoutHistoryActivity : AppCompatActivity() {
                         val checkOutTime = recordDocument.getString("checkOutTime") ?: ""
                         val date = recordDocument.getString("date") ?: ""
                         val email = recordDocument.getString("email") ?: ""
-                        val earlyLeaveStatus = recordDocument.getString("earlyLeaveStatus") ?: ""
+                        val earlyLeaveStatus = recordDocument.getString("earlyLeaveStatus") ?: "" // Fixed variable name
 
-                        // Add record to checkoutList
-                        checkoutList.add(AttendanceRecord(checkOutTime, date, email, earlyLeaveStatus))
+                        // Add record to checkoutList with checkInTime as null
+                        checkoutList.add(AttendanceRecord(checkInTime = null, checkOutTime = checkOutTime, date = date, email = email, status = earlyLeaveStatus))
                     }
                     adapter.notifyDataSetChanged()  // Update adapter
                 } else {
