@@ -4,29 +4,42 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-class AttendanceAdapter(private val historyList: List<AttendanceRecord>) :
-    RecyclerView.Adapter<AttendanceAdapter.AttendanceViewHolder>() {
+import android.widget.ArrayAdapter
+import android.content.Context
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_attendance_record, parent, false)
-        return AttendanceViewHolder(view)
+class AttendanceAdapter(context: Context, private val historyList: List<AttendanceRecord>) :
+    ArrayAdapter<AttendanceRecord>(context, R.layout.item_attendance_record, historyList) {
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val record = getItem(position)
+
+        // Use ViewHolder for better performance
+        val viewHolder: ViewHolder
+        val view: View
+
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_attendance_record, parent, false)
+            viewHolder = ViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as ViewHolder
+        }
+
+        // Set data for ViewHolder
+        viewHolder.tvEmail.text = record?.email
+        viewHolder.tvDate.text = record?.date
+        viewHolder.tvCheckInTime.text = record?.checkInTime
+        viewHolder.tvStatus.text = record?.status
+
+        return view
     }
 
-    override fun onBindViewHolder(holder: AttendanceViewHolder, position: Int) {
-        val record = historyList[position]
-        holder.tvEmail.text = record.email
-        holder.tvDate.text = record.date
-        holder.tvCheckInTime.text = record.checkInTime
-        holder.tvStatus.text = record.status
-    }
-
-    override fun getItemCount(): Int = historyList.size
-
-    inner class AttendanceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvEmail: TextView = itemView.findViewById(R.id.tvEmail)
-        val tvDate: TextView = itemView.findViewById(R.id.tvDate)
-        val tvCheckInTime: TextView = itemView.findViewById(R.id.tvCheckInTime)
-        val tvStatus: TextView = itemView.findViewById(R.id.tvStatus)
+    // ViewHolder class to hold references to the views
+    private class ViewHolder(view: View) {
+        val tvEmail: TextView = view.findViewById(R.id.tvEmail)
+        val tvDate: TextView = view.findViewById(R.id.tvDate)
+        val tvCheckInTime: TextView = view.findViewById(R.id.tvCheckInTime)
+        val tvStatus: TextView = view.findViewById(R.id.tvStatus)
     }
 }

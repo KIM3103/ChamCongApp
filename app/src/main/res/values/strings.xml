@@ -2,5 +2,12 @@
     <string name="app_name">ChamCong</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="leave_request_details">Tên: %1$s\nVị trí: %2$s\nNgày bắt đầu: %3$s\nNgày kết thúc: %4$s\nLý do: %5$s\nTrạng thái: %6$s\nThời gian nộp: %7$s</string>
 
+    <!-- Thêm mảng giới tính -->
+    <string-array name="gender_array">
+        <item>Nam</item>
+        <item>Nữ</item>
+        <item>Khác</item>
+    </string-array>
 </resources>

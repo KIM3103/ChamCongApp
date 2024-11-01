@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Search Bar in MaterialCardView -->
+        <!-- Search Bar -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,55 +42,32 @@
 
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Buttons in MaterialCardViews -->
+        <!-- Buttons in a row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="2"
+            android:gravity="center"
             android:layout_marginBottom="16dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/btnAddEmployee"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Thêm nhân viên"
                 android:layout_weight="1"
-                android:layout_marginEnd="8dp"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="8dp">
+                android:layout_marginEnd="8dp"/>
 
-                <Button
-                    android:id="@+id/btnAll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Toàn bộ"
-                    android:textSize="16sp"
-
-                    android:padding="12dp"/>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/btnEditEmployee"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Sửa thông tin nhân viên"
                 android:layout_weight="1"
-                android:layout_marginStart="8dp"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="8dp">
-
-                <Button
-                    android:id="@+id/btnShort"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Rút gọn"
-                    android:textSize="16sp"
-
-                    android:padding="12dp"/>
-
-            </com.google.android.material.card.MaterialCardView>
-
+                android:layout_marginEnd="8dp"/>
         </LinearLayout>
 
-        <!-- RecyclerView in MaterialCardView -->
+        <!-- RecyclerView for Employee List -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
