@@ -25,7 +25,11 @@ class LoginActivity : AppCompatActivity() {
         auth.signOut()
         // Nếu người dùng đã đăng nhập, chuyển tiếp sang MainActivity
         if (auth.currentUser != null) {
+
+
+
             startActivity(Intent(this@LoginActivity, AttendanceListActivity::class.java))
+
             finish()
         }
 
@@ -70,7 +74,11 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this@LoginActivity, getString(R.string.auth_failed), Toast.LENGTH_LONG).show()
                         }
                     } else {
+
+
+
                         val intent = Intent(this@LoginActivity, AttendanceListActivity::class.java)
+
                         startActivity(intent)
                         finish()
                     }
