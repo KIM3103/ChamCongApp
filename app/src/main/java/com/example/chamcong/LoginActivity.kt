@@ -2,13 +2,12 @@ package com.example.chamcong
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.widget.Toolbar
 import android.text.TextUtils
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import org.checkerframework.checker.units.qual.C
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var inputEmail: EditText
@@ -16,41 +15,34 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var btnLogin: Button
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Get Firebase auth instance
+        // Get Firebase auth and Firestore instances
         auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
         auth.signOut()
-        // Nếu người dùng đã đăng nhập, chuyển tiếp sang MainActivity
+
+        // Check if user is already logged in
         if (auth.currentUser != null) {
-
-
-
-            startActivity(Intent(this@LoginActivity, AttendanceListActivity::class.java))
-
-            finish()
+            checkUserRoleAndRedirect(auth.currentUser!!.email!!)
         }
 
-        // Set layout view cho LoginActivity
+        // Set layout view for LoginActivity
         setContentView(R.layout.activity_login)
-
 
         inputEmail = findViewById(R.id.email)
         inputPassword = findViewById(R.id.password)
         progressBar = findViewById(R.id.progressBar)
-
         btnLogin = findViewById(R.id.btn_login)
 
-
-        // Firebase auth instance
-        auth = FirebaseAuth.getInstance()
         btnLogin.setOnClickListener {
             val email = inputEmail.text.toString()
             val password = inputPassword.text.toString()
 
-            // Kiểm tra nhập liệu
+            // Check input fields
             if (TextUtils.isEmpty(email)) {
                 Toast.makeText(applicationContext, "Enter email address!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -62,27 +54,45 @@ class LoginActivity : AppCompatActivity() {
             }
             progressBar.visibility = View.VISIBLE
 
-            // Xác thực người dùng
+            // Authenticate user
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this@LoginActivity) { task ->
                     progressBar.visibility = View.GONE
                     if (!task.isSuccessful) {
-                        // Nếu đăng nhập không thành công
+                        // Login failed
                         if (password.length < 6) {
                             inputPassword.error = getString(R.string.minimum_password)
                         } else {
                             Toast.makeText(this@LoginActivity, getString(R.string.auth_failed), Toast.LENGTH_LONG).show()
                         }
                     } else {
-
-
-
-                        val intent = Intent(this@LoginActivity, AttendanceListActivity::class.java)
-
-                        startActivity(intent)
-                        finish()
+                        // Successful login, check user role
+                        checkUserRoleAndRedirect(email)
                     }
                 }
-      }
+        }
+    }
+
+    private fun checkUserRoleAndRedirect(email: String) {
+        // Get user document by email
+        db.collection("Users").document(email).get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val role = document.getString("role")
+                if (role == "user") {
+                    // Redirect to CheckInActivity if role is user
+                    val intent = Intent(this@LoginActivity, CheckInActivity::class.java)
+                    startActivity(intent)
+                } else if (role == "admin") {
+                    // Redirect to AttendanceListActivity if role is admin
+                    val intent = Intent(this@LoginActivity, AttendanceListActivity::class.java)
+                    startActivity(intent)
+                }
+                finish()
+            } else {
+                Toast.makeText(this, "User role not found.", Toast.LENGTH_SHORT).show()
+            }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to fetch user data.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
