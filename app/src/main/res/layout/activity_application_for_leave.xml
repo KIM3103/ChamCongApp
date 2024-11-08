@@ -1,136 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    tools:context=".LeaveRequestActivity">
 
-    <!-- Tiêu đề -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nghỉ phép"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:padding="30dp"/>
-
+    <!-- The main layout to hold all content -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/grey_background"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="5dp"
-        android:layout_marginBottom="20dp">
-        <EditText
-            android:id="@+id/etStartDate"
-            android:layout_width="match_parent"
+        android:padding="16dp">
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Ngày bắt đầu"
+            android:text="Nghỉ phép"
+            android:textSize="26sp"
             android:textStyle="bold"
-            android:inputType="date"
-            android:minHeight="50dp"
-            android:padding="8dp" />
-    </LinearLayout>
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="30dp"/>
 
-    <!-- Ngày kết thúc -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/grey_background"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:layout_marginBottom="20dp">
-        <EditText
-            android:id="@+id/etEndDate"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ngày kết thúc"
-            android:textStyle="bold"
-            android:inputType="date"
-            android:padding="8dp"
-            android:minHeight="50dp" />
-    </LinearLayout>
-
-    <!-- CheckBox Options -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/rounded_background"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:textColor="@android:color/white" >
-
-    <RadioGroup
-            android:id="@+id/radioGroupReasons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:background="@drawable/grey_background"
             android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp">
+            <EditText
+                android:id="@+id/etStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ngày bắt đầu"
+                android:textStyle="bold"
+                android:inputType="date"
+                android:minHeight="50dp"
+                android:padding="8dp" />
+        </LinearLayout>
+
+        <!-- Ngày kết thúc -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/grey_background"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp">
+            <EditText
+                android:id="@+id/etEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ngày kết thúc"
+                android:textStyle="bold"
+                android:inputType="date"
+                android:padding="8dp"
+                android:minHeight="50dp" />
+        </LinearLayout>
+
+        <!-- CheckBox Options -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-        android:textColor="@android:color/white" >
+            android:background="@drawable/rounded_background"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:textColor="@android:color/white" >
 
-            <RadioButton
-                android:id="@+id/rbSick"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/radioGroupReasons"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bệnh"
-                android:textColor="@android:color/white" />
+                android:orientation="vertical"
+                android:layout_marginBottom="10dp"
+                android:textColor="@android:color/white">
 
-            <RadioButton
-                android:id="@+id/rbWork"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Công tác"
-                android:textColor="@android:color/white" />
+                <RadioButton
+                    android:id="@+id/rbSick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bệnh"
+                    android:textColor="@android:color/white" />
 
-            <RadioButton
-                android:id="@+id/rbFamily"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Việc gia đình"
-                android:textColor="@android:color/white" />
+                <RadioButton
+                    android:id="@+id/rbWork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Công tác"
+                    android:textColor="@android:color/white" />
 
-            <RadioButton
-                android:id="@+id/rbOther"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Khác"
-                android:textColor="@android:color/white" />
-        </RadioGroup>
-    </LinearLayout>
+                <RadioButton
+                    android:id="@+id/rbFamily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Việc gia đình"
+                    android:textColor="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/rbOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Khác"
+                    android:textColor="@android:color/white" />
+            </RadioGroup>
+        </LinearLayout>
 
         <!-- Ô nhập lý do khác -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/blue_background"
-        android:orientation="vertical"
-        android:padding="5dp"
-        android:layout_marginBottom="20dp">
-        <EditText
-            android:id="@+id/etOtherReason"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nhập lý do khác"
-            android:textStyle="bold"
-            android:padding="8dp"
-            android:minHeight="48dp"/>
+            android:background="@drawable/blue_background"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:layout_marginBottom="20dp">
+            <EditText
+                android:id="@+id/etOtherReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập lý do khác"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:minHeight="48dp"/>
+        </LinearLayout>
+
+        <!-- Button gửi đơn -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/black_button_background"
+            android:padding="12dp"
+            android:text="Gửi đơn"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <!-- Button gửi đơn -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnSubmit"
+    <!-- BottomAppBar -->
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/black_button_background"
-        android:padding="12dp"
-        android:text="Gửi đơn"
-        android:textAllCaps="false"
-        android:textColor="@android:color/white" />
-    </LinearLayout>
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="40dp">
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

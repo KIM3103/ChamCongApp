@@ -1,5 +1,6 @@
 package com.example.chamcong
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -9,9 +10,9 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.database.FirebaseDatabase
 
 class LeaveRequestActivity : AppCompatActivity() {
     private lateinit var etStartDate: EditText
@@ -48,6 +49,26 @@ class LeaveRequestActivity : AppCompatActivity() {
         btnSubmit.setOnClickListener {
             // Fetch user data and then submit leave request
             fetchUserDataAndSubmitLeaveRequest()
+        }
+
+        // Set up the BottomNavigationView outside the btnSubmit's onClickListener
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.TrangChu -> {
+                    startActivity(Intent(this, CheckInActivity::class.java))
+                    true
+                }
+                R.id.LichSu -> {
+                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+                    true
+                }
+                R.id.TaiKhoan -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                else -> false
+            }
         }
     }
 
@@ -128,7 +149,6 @@ class LeaveRequestActivity : AppCompatActivity() {
             }
     }
 
-
     // Optional: Function to clear input fields after submission
     private fun clearFields() {
         etStartDate.text.clear()
@@ -138,5 +158,3 @@ class LeaveRequestActivity : AppCompatActivity() {
         etOtherReason.text.clear()
     }
 }
-
-

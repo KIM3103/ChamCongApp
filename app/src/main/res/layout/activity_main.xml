@@ -1,4 +1,4 @@
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,55 +7,63 @@
     android:background="@color/white"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/imgProfilePicture"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="24dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/rounded_corners"
-        android:clipToOutline="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <ScrollView
 
-    <TextView
-        android:id="@+id/tvChangeProfilePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đổi ảnh đại diện"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toBottomOf="@+id/imgProfilePicture"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvPersonalInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="24dp"
-        android:text="Thông tin cá nhân"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvChangeProfilePicture"
-        android:layout_marginBottom="24dp" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+
+       <ImageView
+           android:id="@+id/imgProfilePicture"
+           android:layout_width="120dp"
+           android:layout_height="120dp"
+           android:layout_marginTop="24dp"
+           android:scaleType="centerCrop"
+           android:background="@drawable/rounded_corners"
+           android:clipToOutline="true"
+           app:layout_anchor="@id/bottomAppBar"
+           app:layout_anchorGravity="top|center_horizontal"
+          />
+
+       <TextView
+           android:id="@+id/tvChangeProfilePicture"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Đổi ảnh đại diện"
+           android:textSize="14sp"
+           android:textColor="@color/black"
+           app:layout_behavior="@string/appbar_scrolling_view_behavior"
+           android:layout_marginTop="8dp" />
+
+       <TextView
+           android:id="@+id/tvPersonalInfo"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:layout_marginTop="24dp"
+           android:text="Thông tin cá nhân"
+           android:textSize="18sp"
+           android:textStyle="bold"
+           android:layout_marginBottom="24dp" />
+
+   </LinearLayout>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_background"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPersonalInfo"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp">
+
+       >
 
         <TextView
             android:layout_width="wrap_content"
@@ -176,32 +184,15 @@
             android:background="@android:color/white" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvPersonalInfo"
-        app:layout_constraintWidth_percent="0.9"
-        android:layout_marginTop="16dp"/>
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_change_password"
         android:background="@drawable/black_button_background"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="430dp"
+        android:layout_marginTop="20dp"
         android:text="Đổi mật khẩu"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutInfo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.9" />
-
-    <!-- Logout Button -->
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_logout"
@@ -210,11 +201,28 @@
         android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
         android:text="Đăng xuất"
-        android:textColor="@android:color/black"
-        app:layout_constraintTop_toBottomOf="@+id/btn_change_password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintWidth_percent="0.9" />
+        android:textColor="@android:color/black" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="40dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:labelVisibilityMode="labeled"
+            android:layout_alignParentBottom="true"
+            app:menu="@menu/bottom_nav" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

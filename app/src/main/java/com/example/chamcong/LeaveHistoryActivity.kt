@@ -1,5 +1,6 @@
 package com.example.chamcong
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -8,12 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
-
+import com.google.android.material.bottomnavigation.BottomNavigationView
 class LeaveHistoryActivity : AppCompatActivity() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var leaveHistoryLayout: LinearLayout
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,35 @@ class LeaveHistoryActivity : AppCompatActivity() {
 
         // Fetch leave history
         fetchLeaveHistory()
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+
+                R.id.TrangChu -> {
+                    startActivity(Intent(this, CheckInActivity::class.java))
+                    true
+                }
+                R.id.DonNghi -> {
+                    startActivity(Intent(this, LeaveRequestActivity::class.java))
+                    true
+                }
+                R.id.LichSu -> {
+                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+                    true
+                }
+//                R.id.TongCong -> {
+//                    startActivity(Intent(this, AdminActivity::class.java))
+//                    true
+//                }
+                R.id.TaiKhoan -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
+
 
     private fun fetchLeaveHistory() {
         val currentUserEmail = auth.currentUser?.email
@@ -54,6 +84,7 @@ class LeaveHistoryActivity : AppCompatActivity() {
             Toast.makeText(this, "Người dùng chưa đăng nhập", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun displayLeaveRequestDetails(document: QueryDocumentSnapshot) {
         // Get data from the Firestore document
@@ -84,4 +115,6 @@ class LeaveHistoryActivity : AppCompatActivity() {
         // Add TextView to the layout
         leaveHistoryLayout.addView(leaveDetailsTextView)
     }
+
+
 }

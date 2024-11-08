@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,6 +44,34 @@ class MainActivity : AppCompatActivity() {
         tvName = findViewById(R.id.tvName)
         btnLogout = findViewById(R.id.btn_logout)
         btnChangePassword = findViewById(R.id.btn_change_password)
+
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+
+                R.id.TrangChu -> {
+                    startActivity(Intent(this, CheckInActivity::class.java))
+                    true
+                }
+                R.id.DonNghi -> {
+                    startActivity(Intent(this, LeaveRequestActivity::class.java))
+                    true
+                }
+                R.id.LichSu -> {
+                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+                    true
+                }
+//                R.id.TongCong -> {
+//                    startActivity(Intent(this, AdminActivity::class.java))
+//                    true
+//                }
+                R.id.TaiKhoan -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
 
         // Lấy thông tin email của người dùng đã đăng nhập
         val user = auth.currentUser

@@ -1,5 +1,7 @@
 package com.example.chamcong
 
+//Admin xem danh sach tan ca//
+
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable

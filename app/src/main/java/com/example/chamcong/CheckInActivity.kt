@@ -1,17 +1,19 @@
 package com.example.chamcong
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CheckInActivity : AppCompatActivity() {
-    private lateinit var tvTime: TextView
+//    private lateinit var tvTime: TextView
     private lateinit var btnCheckIn: Button
     private lateinit var btnCheckOut: Button
     private lateinit var tvResult: TextView
@@ -27,7 +29,7 @@ class CheckInActivity : AppCompatActivity() {
         setContentView(R.layout.activity_timekeeping)
 
         // Ánh xạ các view
-        tvTime = findViewById(R.id.tvTime)
+//        tvTime = findViewById(R.id.tvTime)
         btnCheckIn = findViewById(R.id.btnCheckIn)
         btnCheckOut = findViewById(R.id.btnCheckOut)
         tvResult = findViewById(R.id.tvResult)
@@ -47,7 +49,7 @@ class CheckInActivity : AppCompatActivity() {
         }
 
         // Hiển thị thời gian hiện tại
-        updateCurrentTime()
+//        updateCurrentTime()
 
         // Sự kiện khi nhấn nút Chấm công
         btnCheckIn.setOnClickListener {
@@ -58,13 +60,40 @@ class CheckInActivity : AppCompatActivity() {
         btnCheckOut.setOnClickListener {
             handleCheckOut()
         }
-    }
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
 
-    private fun updateCurrentTime() {
-        val calendar = Calendar.getInstance()
-        val currentTime = timeFormat.format(calendar.time)
-        tvTime.text = "Giờ: $currentTime"
+                R.id.TrangChu -> {
+                    startActivity(Intent(this, CheckInActivity::class.java))
+                    true
+                }
+                R.id.DonNghi -> {
+                    startActivity(Intent(this, LeaveRequestActivity::class.java))
+                    true
+                }
+                R.id.LichSu -> {
+                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+                    true
+                }
+//                R.id.TongCong -> {
+//                    startActivity(Intent(this, AdminActivity::class.java))
+//                    true
+//                }
+                R.id.TaiKhoan -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
+//
+//    private fun updateCurrentTime() {
+//        val calendar = Calendar.getInstance()
+//        val currentTime = timeFormat.format(calendar.time)
+//        tvTime.text = "Giờ: $currentTime"
+//    }
 
     private fun handleCheckIn() {
         val currentUser = auth.currentUser
