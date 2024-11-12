@@ -83,9 +83,10 @@ class CheckInActivity : AppCompatActivity() {
             // Hiển thị kết quả chấm công và trạng thái đi làm
             val (lateHours, lateMins) = convertMinutesToHoursAndMinutes(Math.abs(lateMinutes))
             tvResult.text = if (lateMinutes > 0) {
-                "Chấm công lúc: $currentTime. Bạn đã đi làm muộn: $lateHours giờ $lateMins phút."
-            } else {
                 "Chấm công lúc: $currentTime. Bạn đã đi làm đúng giờ."
+
+            } else {
+                "Chấm công lúc: $currentTime. Bạn đã đi làm muộn: $lateHours giờ $lateMins phút."
             }
         } else {
             tvResult.text = "Vui lòng đăng nhập"
@@ -109,9 +110,11 @@ class CheckInActivity : AppCompatActivity() {
             // Hiển thị kết quả tan ca
             val (earlyHours, earlyLeaveMins) = convertMinutesToHoursAndMinutes(Math.abs(earlyLeaveMinutes))
             tvResult.text = if (earlyLeaveMinutes > 0) {
-                "Tan ca lúc: $currentTime. Bạn đã tan ca sớm: $earlyHours giờ $earlyLeaveMins phút."
-            } else {
                 "Tan ca lúc: $currentTime. Bạn đã tan ca đúng giờ."
+
+            } else {
+
+                "Tan ca lúc: $currentTime. Bạn đã tan ca sớm: $earlyHours giờ $earlyLeaveMins phút."
             }
         } else {
             tvResult.text = "Vui lòng đăng nhập"

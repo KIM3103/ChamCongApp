@@ -53,13 +53,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("com.google.android.material:material:1.9.0")
-    implementation ("androidx.core:core:1.10.1")
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation ("androidx.appcompat:appcompat:1.7.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation(libs.androidx.recyclerview)
+    implementation ("com.squareup.picasso:picasso:2.71828")
 
     kapt("com.github.bumptech.glide:compiler:4.12.0")
     testImplementation("junit:junit:4.13.2")
