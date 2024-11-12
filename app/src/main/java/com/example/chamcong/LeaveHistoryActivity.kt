@@ -1,10 +1,12 @@
 package com.example.chamcong
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
@@ -28,6 +30,33 @@ class LeaveHistoryActivity : AppCompatActivity() {
 
         // Fetch leave history
         fetchLeaveHistory()
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+
+                R.id.TrangChu -> {
+                    startActivity(Intent(this, CheckInActivity::class.java))
+                    true
+                }
+                R.id.DonNghi -> {
+                    startActivity(Intent(this, LeaveRequestActivity::class.java))
+                    true
+                }
+//                R.id.LichSu -> {
+//                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+//                    true
+//                }
+//                R.id.TongCong -> {
+//                    startActivity(Intent(this, AdminActivity::class.java))
+//                    true
+//                }
+                R.id.TaiKhoan -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun fetchLeaveHistory() {

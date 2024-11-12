@@ -1,194 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:layout_height="match_parent">
 
-    <!-- Tiêu đề -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chấm công"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="16dp" />
-
-    <androidx.cardview.widget.CardView
+    <!-- FrameLayout containing the main content -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_height="match_parent">
 
-
-        android:background="@color/blue">
-
-        <!-- Phần chọn ngày -->
+        <!-- Main Content Layout -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="16dp">
-
-            <!-- Nút điều hướng ngày -->
+            android:padding="16dp"
+            android:gravity="center">
             <TextView
+                android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lịch"
-                android:textSize="16sp"
+
+                android:textSize="48sp"
+                android:paddingEnd="8dp"
+                android:textColor="#1A237E" />
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chấm công"
+                android:layout_marginBottom="30dp"
+                android:textSize="26sp"
+                android:textStyle="bold"
                 android:layout_gravity="center_horizontal"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp" />
+                android:paddingBottom="16dp" />
 
-            <!-- Layout để hiển thị các ngày trong tuần -->
-            <LinearLayout
+            <!-- Date Selection Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/blue">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/grey_background"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:background="@drawable/radius"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="8dp"
+                        android:text="&lt;&lt; Tháng 10 năm 2024 &gt;&gt;"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_horizontal">
+
+                        <!-- Weekday Labels -->
+                        <TextView android:id="@+id/tvSunday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp" android:background="@drawable/radius" android:padding="8dp" android:text="CN"/>
+                        <TextView android:id="@+id/tvMonday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp" android:background="@drawable/radius" android:padding="8dp" android:text="T2"/>
+                        <TextView android:id="@+id/tvTuesday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp" android:background="@drawable/radius" android:padding="8dp" android:text="T3"/>
+                        <TextView android:id="@+id/tvWednesday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp" android:background="@drawable/radius" android:padding="8dp" android:text="T4"/>
+                        <TextView android:id="@+id/tvThursday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp" android:background="@drawable/radius" android:padding="8dp" android:text="T5"/>
+                        <TextView android:id="@+id/tvFriday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp" android:background="@drawable/radius" android:padding="8dp" android:text="T6"/>
+                        <TextView android:id="@+id/tvSaturday" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="4dp" android:background="@drawable/radius" android:padding="8dp" android:text="T7"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Position and Name -->
+            <TextView
+                android:id="@+id/tvPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal">
+                android:text="Vị trí:"
+                android:textSize="16sp" />
 
-                <!-- Các ngày CN đến T7 -->
-                <TextView
-                    android:id="@+id/tvSunday"
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Họ và Tên: "
+                android:textSize="16sp" />
+
+            <!-- Working Hours -->
+            <TextView
+                android:id="@+id/timework"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/rounded_background"
+                android:padding="16dp"
+                android:text="Ca làm việc: 9h00 AM - 18h PM"
+                android:textColor="#FFFFFF"
+                android:gravity="center" />
+
+            <!-- Clock Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#336999">
+
+                <DigitalClock
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CN"
-                    android:padding="8dp"
-                    android:layout_margin="4dp" />
+                    android:layout_margin="16dp"
+                    android:layout_gravity="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="40sp" />
+            </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/tvMonday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T2"
-                    android:padding="8dp"
-                    android:layout_margin="4dp" />
+            <!-- Check-in and Check-out Buttons -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCheckIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/black_button_background"
+                android:text="Chấm công"
+                android:textColor="@android:color/white"/>
 
-                <TextView
-                    android:id="@+id/tvTuesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T3"
-                    android:padding="8dp"
-                    android:layout_margin="4dp" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnCheckOut"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/grey_button_background"
+                android:text="Tan ca"
+                android:textColor="@android:color/white" />
 
-                <TextView
-                    android:id="@+id/tvWednesday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T4"
-                    android:padding="8dp"
-                    android:layout_margin="4dp" />
-
-                <TextView
-                    android:id="@+id/tvThursday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T5"
-                    android:padding="8dp"
-                    android:layout_margin="4dp" />
-
-                <TextView
-                    android:id="@+id/tvFriday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T6"
-                    android:padding="8dp"
-                    android:layout_margin="4dp" />
-
-                <TextView
-                    android:id="@+id/tvSaturday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="T7"
-                    android:padding="8dp"
-                    android:layout_margin="4dp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/tvResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text=""
+                android:textSize="16sp" />
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/tvPosition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Vị trí: "
-        android:textSize="16sp" />
+    </FrameLayout>
 
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Họ và Tên: "
-        android:textSize="16sp" />
-
-    <!-- Ca làm việc -->
-    <TextView
-        android:id="@+id/timework"
+    <!-- Bottom App Bar with Navigation -->
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#303F9F"
-        android:textColor="#FFFFFF"
-        android:padding="16dp"
-        android:text="Ca làm việc : 8h - 17h "
-        android:layout_marginTop="16dp" />
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:fabCradleMargin="10dp"
+        app:fabCradleRoundedCornerRadius="40dp">
 
-    <!-- Giờ hiện tại -->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="16dp">
-
-        <TextView
-            android:id="@+id/tvTime"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav" />
+    </com.google.android.material.bottomappbar.BottomAppBar>
 
-            android:textSize="48sp"
-            android:paddingEnd="8dp"
-            android:textColor="#1A237E" />
-
-
-
-        <TextView
-            android:id="@+id/tvMinute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:textSize="48sp"
-            android:paddingStart="8dp"
-            android:textColor="#757575"/>
-    </LinearLayout>
-
-    <!-- Button chấm công -->
-    <Button
-        android:id="@+id/btnCheckIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chấm công"
-        android:backgroundTint="#000000"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="24dp" />
-
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textSize="16sp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp" />
-
-    <Button
-        android:id="@+id/btnCheckOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tan Ca"
-        android:backgroundTint="#B0BEC5"
-        android:textColor="#000000"
-        android:layout_gravity="center_horizontal" />
-
-</LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

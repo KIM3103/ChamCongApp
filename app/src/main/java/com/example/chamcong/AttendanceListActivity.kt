@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AttendanceListActivity : AppCompatActivity() {
@@ -46,6 +47,26 @@ class AttendanceListActivity : AppCompatActivity() {
 
         // Thiết lập các listener cho tìm kiếm
         setupSearchListeners()
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+//
+//                R.id.DSNhanVien -> {
+//                    startActivity(Intent(this, AttendanceListActivity::class.java))
+//                    true
+//                }
+
+                R.id.DSTanCa -> {
+                    startActivity(Intent(this, CheckoutListActivity::class.java))
+                    true
+                }
+                R.id.TaiKhoanAd -> {
+                    startActivity(Intent(this, MainActivityAd::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun loadCheckInRecords() {

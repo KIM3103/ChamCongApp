@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Trang chủ"
+        android:id="@+id/TrangChu"
+        android:icon="@drawable/baseline_home_24"/>
+    <item android:title="Đơn nghỉ"
+        android:id="@+id/DonNghi"
+        android:icon="@drawable/baseline_mail_outline_24" />
+    <item android:title="Lịch sử"
+        android:id="@+id/LichSu"
+        android:icon="@drawable/baseline_alarm_on_24"/>
+    <item android:title="Tổng công"
+        android:id="@+id/TongCong"
+        android:icon="@drawable/baseline_app_registration_24"/>
+    <item android:title="Tài khoản"
+        android:id="@+id/TaiKhoan"
+        android:icon="@drawable/baseline_person_24"/>
+</menu>

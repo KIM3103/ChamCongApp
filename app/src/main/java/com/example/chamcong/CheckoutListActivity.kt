@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CheckoutListActivity : AppCompatActivity() {
@@ -45,6 +46,26 @@ class CheckoutListActivity : AppCompatActivity() {
 
         // Set up search listeners
         setupSearchListeners()
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+//
+//                R.id.DSNhanVien -> {
+//                    startActivity(Intent(this, AttendanceListActivity::class.java))
+//                    true
+//                }
+
+                R.id.DSChamCong -> {
+                    startActivity(Intent(this, AttendanceListActivity::class.java))
+                    true
+                }
+                R.id.TaiKhoanAd -> {
+                    startActivity(Intent(this, MainActivityAd::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     private fun loadCheckoutRecords() {
