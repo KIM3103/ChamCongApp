@@ -1,11 +1,14 @@
 package com.example.chamcong
 
 data class Employee(
+    val name: String = "",
+    val position: String = "",
+    val phone: String = "",
     val cccd: String = "",
     val gender: String = "",
-    val name: String = "",
-    val phone: String = "",
+    val role: String = "",
     val picture: String = "",
-    val position: String = ""
+    val email: String = ""
 )
+
 
