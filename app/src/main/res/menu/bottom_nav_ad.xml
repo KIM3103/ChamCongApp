@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Nhân Viên"
+        android:id="@+id/DSNhanVien"
+        android:icon="@drawable/baseline_people_24" />
+    <item android:title="Chấm Công"
+        android:id="@+id/DSChamCong"
+        android:icon="@drawable/baseline_checklist_rtl_24"/>
+    <item android:title="Tan Ca"
+        android:id="@+id/DSTanCa"
+        android:icon="@drawable/baseline_output_24"/>
+    <item android:title="Tài Khoản"
+        android:id="@+id/TaiKhoanAd"
+        android:icon="@drawable/baseline_person_outline_24"/>
+</menu>

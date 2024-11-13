@@ -2,88 +2,96 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivityAd">
 
-    <LinearLayout
+    <!-- Scrollable Content Container -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:fillViewport="true">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Danh sách nhân viên"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Search Bar -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="8dp">
-
-            <EditText
-                android:id="@+id/etSearch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Tìm kiếm nhân viên"
-                android:drawableStart="@android:drawable/ic_menu_search"
-                android:drawablePadding="8dp"
-                android:background="@null"
-                android:padding="16dp"/>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <!-- Buttons in a row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="16dp">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <Button
-                android:id="@+id/btnAddEmployee"
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Thêm nhân viên"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"/>
+                android:text="Danh sách nhân viên"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginBottom="16dp"/>
 
-            <Button
-                android:id="@+id/btnEditEmployee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sửa thông tin nhân viên"
-                android:layout_weight="1"
-                android:layout_marginEnd="8dp"/>
-        </LinearLayout>
-
-        <!-- RecyclerView for Employee List -->
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="8dp">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvEmployeeList"
+            <!-- Search Bar -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="8dp"/>
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="8dp">
 
-        </com.google.android.material.card.MaterialCardView>
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tìm kiếm nhân viên"
+                    android:drawableStart="@android:drawable/ic_menu_search"
+                    android:drawablePadding="8dp"
+                    android:background="@null"
+                    android:padding="16dp"/>
+            </com.google.android.material.card.MaterialCardView>
 
-    </LinearLayout>
+            <!-- Buttons in a row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <Button
+                    android:id="@+id/btnAddEmployee"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Thêm nhân viên"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btnEditEmployee"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sửa thông tin nhân viên"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <!-- RecyclerView for Employee List -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardElevation="2dp"
+                app:cardCornerRadius="12dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvEmployeeList"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:clipToPadding="false"
+                    android:padding="12dp"/>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

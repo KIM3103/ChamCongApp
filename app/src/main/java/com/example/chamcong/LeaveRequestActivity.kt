@@ -59,12 +59,16 @@ class LeaveRequestActivity : AppCompatActivity() {
                     startActivity(Intent(this, CheckInActivity::class.java))
                     true
                 }
-                R.id.LichSu -> {
-                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
-                    true
-                }
+//                R.id.TongCong -> {
+//                    startActivity(Intent(this, AdminActivity::class.java))
+//                    true
+//                }
                 R.id.TaiKhoan -> {
                     startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                R.id.LichSu -> {
+                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
                     true
                 }
                 else -> false

@@ -55,6 +55,9 @@
         <activity
             android:name=".LeaveRequestActivity"
             android:exported="true" />
+        <activity
+            android:name=".MainActivityAd"
+            android:exported="true" />
     </application>
 
 </manifest>
