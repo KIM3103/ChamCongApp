@@ -6,16 +6,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.android.material.bottomnavigation.BottomNavigationView
+
 class LeaveHistoryActivity : AppCompatActivity() {
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var leaveHistoryLayout: LinearLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +42,10 @@ class LeaveHistoryActivity : AppCompatActivity() {
                     startActivity(Intent(this, LeaveRequestActivity::class.java))
                     true
                 }
-                R.id.LichSu -> {
-                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
-                    true
-                }
+//                R.id.LichSu -> {
+//                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+//                    true
+//                }
 //                R.id.TongCong -> {
 //                    startActivity(Intent(this, AdminActivity::class.java))
 //                    true
@@ -58,7 +58,6 @@ class LeaveHistoryActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun fetchLeaveHistory() {
         val currentUserEmail = auth.currentUser?.email
@@ -84,7 +83,6 @@ class LeaveHistoryActivity : AppCompatActivity() {
             Toast.makeText(this, "Người dùng chưa đăng nhập", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private fun displayLeaveRequestDetails(document: QueryDocumentSnapshot) {
         // Get data from the Firestore document
@@ -115,6 +113,4 @@ class LeaveHistoryActivity : AppCompatActivity() {
         // Add TextView to the layout
         leaveHistoryLayout.addView(leaveDetailsTextView)
     }
-
-
 }

@@ -9,41 +9,41 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".MainActivityAd">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <!-- Thanh tìm kiếm theo ngày -->
-    <EditText
-        android:id="@+id/editTextSearchDay"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search by date " />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!-- Thanh tìm kiếm theo email -->
-    <EditText
-        android:id="@+id/editTextSearchEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Search by email" />
+        <!-- Thanh tìm kiếm theo ngày -->
+        <EditText
+            android:id="@+id/editTextSearchDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search by date " />
 
-    <!-- ListView -->
-    <ListView
-        android:id="@+id/listViewCheckout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        <!-- Thanh tìm kiếm theo email -->
+        <EditText
+            android:id="@+id/editTextSearchEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search by email" />
 
-    <!-- Nút quay lại ở cuối trang -->
-    <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quay lại" />
+        <!-- ListView -->
+        <ListView
+            android:id="@+id/listViewCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Nút quay lại ở cuối trang -->
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quay lại" />
 
 
-</LinearLayout>
+    </LinearLayout>
     <!-- BottomAppBar bên trong CoordinatorLayout -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

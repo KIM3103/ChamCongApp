@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.FirebaseDatabase
 
 class LeaveRequestActivity : AppCompatActivity() {
     private lateinit var etStartDate: EditText
@@ -50,8 +51,6 @@ class LeaveRequestActivity : AppCompatActivity() {
             // Fetch user data and then submit leave request
             fetchUserDataAndSubmitLeaveRequest()
         }
-
-        // Set up the BottomNavigationView outside the btnSubmit's onClickListener
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -59,16 +58,12 @@ class LeaveRequestActivity : AppCompatActivity() {
                     startActivity(Intent(this, CheckInActivity::class.java))
                     true
                 }
-//                R.id.TongCong -> {
-//                    startActivity(Intent(this, AdminActivity::class.java))
-//                    true
-//                }
-                R.id.TaiKhoan -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                    true
-                }
                 R.id.LichSu -> {
                     startActivity(Intent(this, LeaveHistoryActivity::class.java))
+                    true
+                }
+                R.id.TaiKhoan -> {
+                    startActivity(Intent(this, MainActivity::class.java))
                     true
                 }
                 else -> false
@@ -153,6 +148,7 @@ class LeaveRequestActivity : AppCompatActivity() {
             }
     }
 
+
     // Optional: Function to clear input fields after submission
     private fun clearFields() {
         etStartDate.text.clear()
@@ -162,3 +158,5 @@ class LeaveRequestActivity : AppCompatActivity() {
         etOtherReason.text.clear()
     }
 }
+
+
