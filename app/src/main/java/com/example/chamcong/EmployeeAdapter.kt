@@ -1,60 +1,66 @@
-package com.example.chamcong
-
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.BaseAdapter
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
+import com.example.chamcong.Employee
+import com.example.chamcong.R
+import com.squareup.picasso.Picasso
 
-// Define the EmployeeAdapter class
-class EmployeeAdapter(
-    private var employees: List<Employee>,  // List of Employee objects
-    private val onClick: (Employee) -> Unit, // Lambda function to handle item click
-    private val onDelete: (Employee) -> Unit // Lambda function to handle delete button click
-) : RecyclerView.Adapter<EmployeeAdapter.EmployeeViewHolder>() {
+class EmployeeAdapter(private val context: Context, private val employeeList: List<Employee>) : BaseAdapter() {
 
-    // ViewHolder class to hold references to the views in each item
-    inner class EmployeeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvName: TextView = itemView.findViewById(R.id.etEmployeeName)  // Use tvEmployeeName instead of etEmployeeName
-        val tvPosition: TextView = itemView.findViewById(R.id.etEmployeePosition)  // Use tvEmployeePosition instead of etEmployeePosition
-        val btnDelete: Button = itemView.findViewById(R.id.btnDelete) // Button to delete employee
+    override fun getCount(): Int = employeeList.size
 
-        // Bind employee data to the views
-        fun bind(employee: Employee) {
-            tvName.text = employee.name
-            tvPosition.text = employee.position
+    override fun getItem(position: Int): Any = employeeList[position]
 
-            // Set up the click listener for the item
-            itemView.setOnClickListener { onClick(employee) }
+    override fun getItemId(position: Int): Long = position.toLong()
 
-            // Set up the delete button
-            btnDelete.setOnClickListener {
-                // Handle delete click (optional confirmation dialog)
-                onDelete(employee)
-            }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val view: View
+        val holder: ViewHolder
+
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_employee, parent, false)
+            holder = ViewHolder(view)
+            view.tag = holder
+        } else {
+            view = convertView
+            holder = view.tag as ViewHolder
         }
+
+        val employee = employeeList[position]
+
+        // Load image using Picasso
+        if (employee.picture.isNotEmpty()) {
+            Picasso.get().load(employee.picture).into(holder.imageView)
+        } else {
+            holder.imageView.setImageResource(R.drawable.ic_avatar_placeholder)
+        }
+
+        // Set text views
+        holder.nameTextView.text = employee.name
+        holder.positionTextView.text = employee.position
+        holder.phoneTextView.text = employee.phone
+        holder.cccdTextView.text = employee.cccd
+        holder.genderTextView.text = employee.gender
+        holder.roleTextView.text = employee.role
+        holder.emailTextView.text = employee.email // Hiển thị email
+
+        return view
     }
 
-    // Create new views (invoked by the layout manager)
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EmployeeViewHolder {
-        // Inflate the item layout for each employee
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_employee, parent, false)
-        return EmployeeViewHolder(view)
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    override fun onBindViewHolder(holder: EmployeeViewHolder, position: Int) {
-        val employee = employees[position]
-        holder.bind(employee) // Bind the employee data to the views
-    }
-
-    // Return the total number of items in the data set
-    override fun getItemCount(): Int = employees.size
-
-    // Update the list of employees in the adapter
-    fun updateEmployeeList(newEmployees: List<Employee>) {
-        employees = newEmployees
-        notifyDataSetChanged()  // Notify that the data set has changed
+    private class ViewHolder(view: View) {
+        val imageView: ImageView = view.findViewById(R.id.employeeImageView)
+        val nameTextView: TextView = view.findViewById(R.id.employeeName)
+        val positionTextView: TextView = view.findViewById(R.id.employeePosition)
+        val phoneTextView: TextView = view.findViewById(R.id.employeePhone)
+        val cccdTextView: TextView = view.findViewById(R.id.employeeCCCD)
+        val genderTextView: TextView = view.findViewById(R.id.employeeGender)
+        val roleTextView: TextView = view.findViewById(R.id.employeeRole)
+        val emailTextView: TextView = view.findViewById(R.id.employeeEmail) // Thêm email vào ViewHolder
     }
 }
+
+

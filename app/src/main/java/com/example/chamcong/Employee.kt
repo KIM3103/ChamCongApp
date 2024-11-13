@@ -7,7 +7,8 @@ data class Employee(
     val cccd: String = "",
     val gender: String = "",
     val role: String = "",
-    val avatarUrl: String = "" // New field for avatar URL
+    val picture: String = "",
+    val email: String = ""
 )
 
 
