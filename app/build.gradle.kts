@@ -60,8 +60,7 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation(libs.androidx.recyclerview)
-    implementation ("com.squareup.picasso:picasso:2.71828")
-
+    implementation ("com.google.android.material:material:1.7.0") // Hoặc phiên bản mới nhất
     kapt("com.github.bumptech.glide:compiler:4.12.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
