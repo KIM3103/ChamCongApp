@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class EditEmployeeActivity : AppCompatActivity() {
@@ -17,7 +19,8 @@ class EditEmployeeActivity : AppCompatActivity() {
     private lateinit var employeeGenderEditText: EditText
     private lateinit var employeeRoleEditText: EditText
     private val firestore = FirebaseFirestore.getInstance()
-    private var employeeEmail: String? = null // Email của nhân viên được chọn
+    private val auth = FirebaseAuth.getInstance()
+    private var employeeEmail: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,24 +35,24 @@ class EditEmployeeActivity : AppCompatActivity() {
         employeeGenderEditText = findViewById(R.id.employeeGender)
         employeeRoleEditText = findViewById(R.id.employeeRole)
 
-        // Lấy dữ liệu từ Intent
-        employeeEmail = intent.getStringExtra("EMPLOYEE_EMAIL") // Lưu email của nhân viên được chọn
-        val employeeName = intent.getStringExtra("EMPLOYEE_NAME")
-        val employeePosition = intent.getStringExtra("EMPLOYEE_POSITION")
-        val employeePhone = intent.getStringExtra("EMPLOYEE_PHONE")
-        val employeeCCCD = intent.getStringExtra("EMPLOYEE_CCCD")
-        val employeeURL = intent.getStringExtra("EMPLOYEE_URL")
-        val employeeGender = intent.getStringExtra("EMPLOYEE_GENDER")
-        val employeeRole = intent.getStringExtra("EMPLOYEE_ROLE")
+        // Retrieve data from the intent
+        employeeEmail = intent.getStringExtra("EMPLOYEE_EMAIL")
+        val name = intent.getStringExtra("EMPLOYEE_NAME")
+        val position = intent.getStringExtra("EMPLOYEE_POSITION")
+        val phone = intent.getStringExtra("EMPLOYEE_PHONE")
+        val url = intent.getStringExtra("EMPLOYEE_URL")
+        val cccd = intent.getStringExtra("EMPLOYEE_CCCD")
+        val gender = intent.getStringExtra("EMPLOYEE_GENDER")
+        val role = intent.getStringExtra("EMPLOYEE_ROLE")
 
-        // Set data to EditTexts
-        employeeNameEditText.setText(employeeName)
-        employeePositionEditText.setText(employeePosition)
-        employeePhoneEditText.setText(employeePhone)
-        employeeCCCDEditText.setText(employeeCCCD)
-        employeeURLEditText.setText(employeeURL)
-        employeeGenderEditText.setText(employeeGender)
-        employeeRoleEditText.setText(employeeRole)
+        // Set the data into the EditTexts
+        employeeNameEditText.setText(name)
+        employeePositionEditText.setText(position)
+        employeePhoneEditText.setText(phone)
+        employeeCCCDEditText.setText(cccd)
+        employeeURLEditText.setText(url)
+        employeeGenderEditText.setText(gender)
+        employeeRoleEditText.setText(role)
 
         val saveButton: Button = findViewById(R.id.saveButton)
         val deleteButton: Button = findViewById(R.id.deleteButton)
@@ -60,7 +63,7 @@ class EditEmployeeActivity : AppCompatActivity() {
         }
 
         deleteButton.setOnClickListener {
-            deleteEmployee()
+            showDeleteConfirmationDialog()
         }
 
         backButton.setOnClickListener {
@@ -77,7 +80,11 @@ class EditEmployeeActivity : AppCompatActivity() {
         val gender = employeeGenderEditText.text.toString().trim()
         val role = employeeRoleEditText.text.toString().trim()
 
-        // Kiểm tra nếu email không null hoặc trống
+        if (name.isEmpty() || position.isEmpty() || phone.isEmpty() || cccd.isEmpty() || gender.isEmpty() || role.isEmpty()) {
+            Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         if (!employeeEmail.isNullOrEmpty()) {
             val updatedEmployee = mapOf(
                 "name" to name,
@@ -86,55 +93,95 @@ class EditEmployeeActivity : AppCompatActivity() {
                 "cccd" to cccd,
                 "picture" to url,
                 "gender" to gender,
-                "role" to role,
-                "email" to employeeEmail
+                "role" to role
             )
 
-            firestore.collection("Users")
-                .document(employeeEmail!!) // Sử dụng email làm documentId
-                .set(updatedEmployee)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Employee updated successfully", Toast.LENGTH_SHORT).show()
-                    setResult(RESULT_OK)
-                    finish()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to update employee", Toast.LENGTH_SHORT).show()
-                }
+            // Update Firestore first
+            updateEmployeeInFirestore(updatedEmployee)
         } else {
             Toast.makeText(this, "Employee email is missing, cannot update", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun deleteEmployee() {
-        val employeeRole = employeeRoleEditText.text.toString()
+    private fun updateEmployeeInFirestore(updatedEmployee: Map<String, Any>) {
+        firestore.collection("Users")
+            .document(employeeEmail!!)
+            .update(updatedEmployee)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Employee updated in Firestore successfully", Toast.LENGTH_SHORT).show()
+                setResult(RESULT_OK)
+                finish()
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Failed to update employee in Firestore: ${exception.message}", Toast.LENGTH_LONG).show()
+            }
+    }
 
-        if (employeeRole.equals("user", ignoreCase = true) && !employeeEmail.isNullOrEmpty()) {
+    private fun showDeleteConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Delete Employee")
+        builder.setMessage("Are you sure you want to delete this employee?")
+
+        builder.setPositiveButton("Yes") { _, _ ->
+            deleteEmployeeFromFirestore()
+        }
+
+        builder.setNegativeButton("No") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    private fun deleteEmployeeFromFirestore() {
+        if (!employeeEmail.isNullOrEmpty()) {
+            // Retrieve the employee's role from Firestore to check if it's "admin" or "user"
             firestore.collection("Users")
                 .document(employeeEmail!!)
                 .get()
                 .addOnSuccessListener { document ->
-                    if (document.exists() && document.getString("role") == "user") {
+                    val role = document.getString("role")
+                    if (role == "user") {
+                        // Proceed with deletion if the role is "user"
                         firestore.collection("Users")
                             .document(employeeEmail!!)
                             .delete()
                             .addOnSuccessListener {
-                                Toast.makeText(this, "Employee deleted successfully", Toast.LENGTH_SHORT).show()
-                                setResult(RESULT_OK)
-                                finish()
+                                Toast.makeText(this, "Employee deleted from Firestore successfully", Toast.LENGTH_SHORT).show()
+                                // After Firestore deletion, delete from Firebase Authentication
+                                deleteEmployeeFromAuthentication()
                             }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Failed to delete employee", Toast.LENGTH_SHORT).show()
+                            .addOnFailureListener { exception ->
+                                Toast.makeText(this, "Failed to delete employee from Firestore: ${exception.message}", Toast.LENGTH_LONG).show()
                             }
                     } else {
-                        Toast.makeText(this, "No employee with this role and email found", Toast.LENGTH_SHORT).show()
+                        // Prevent deletion if the role is not "user" (e.g., "admin")
+                        Toast.makeText(this, "Cannot delete an admin", Toast.LENGTH_SHORT).show()
                     }
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to find employee", Toast.LENGTH_SHORT).show()
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, "Failed to retrieve employee role: ${exception.message}", Toast.LENGTH_LONG).show()
                 }
         } else {
-            Toast.makeText(this, "Cannot delete employee with role: $employeeRole", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Employee email is missing, cannot delete from Firestore", Toast.LENGTH_SHORT).show()
         }
     }
+    private fun deleteEmployeeFromAuthentication() {
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            currentUser.delete()
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Employee deleted from Authentication", Toast.LENGTH_SHORT).show()
+                    setResult(RESULT_OK)
+                    finish()
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, "Failed to delete from Authentication: ${exception.message}", Toast.LENGTH_LONG).show()
+                }
+        } else {
+            Toast.makeText(this, "No authenticated user found, cannot delete from Authentication", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }

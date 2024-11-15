@@ -32,21 +32,22 @@ class EmployeeAdapter(private val context: Context, private val employeeList: Li
 
         val employee = employeeList[position]
 
-        // Load image using Picasso
+        // Load image using Picasso with error handling
         if (employee.picture.isNotEmpty()) {
-            Picasso.get().load(employee.picture).into(holder.imageView)
+            Picasso.get()
+                .load(employee.picture)
+                .placeholder(R.drawable.ic_avatar_placeholder)
+                .error(R.drawable.ic_avatar_placeholder) // Set fallback image on error
+                .into(holder.imageView)
         } else {
             holder.imageView.setImageResource(R.drawable.ic_avatar_placeholder)
         }
 
-        // Set text views
+        // Set the text views with employee information
         holder.nameTextView.text = employee.name
+        holder.emailTextView.text = employee.email
         holder.positionTextView.text = employee.position
-        holder.phoneTextView.text = employee.phone
-        holder.cccdTextView.text = employee.cccd
         holder.genderTextView.text = employee.gender
-        holder.roleTextView.text = employee.role
-        holder.emailTextView.text = employee.email // Hiển thị email
 
         return view
     }
@@ -54,14 +55,8 @@ class EmployeeAdapter(private val context: Context, private val employeeList: Li
     private class ViewHolder(view: View) {
         val imageView: ImageView = view.findViewById(R.id.employeeImageView)
         val nameTextView: TextView = view.findViewById(R.id.employeeName)
+        val emailTextView: TextView = view.findViewById(R.id.employeeEmail)
         val positionTextView: TextView = view.findViewById(R.id.employeePosition)
-        val phoneTextView: TextView = view.findViewById(R.id.employeePhone)
-        val cccdTextView: TextView = view.findViewById(R.id.employeeCCCD)
         val genderTextView: TextView = view.findViewById(R.id.employeeGender)
-        val roleTextView: TextView = view.findViewById(R.id.employeeRole)
-        val emailTextView: TextView = view.findViewById(R.id.employeeEmail) // Thêm email vào ViewHolder
     }
 }
-
-
-//employee adapter

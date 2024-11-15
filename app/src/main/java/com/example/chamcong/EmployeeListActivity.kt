@@ -79,8 +79,12 @@ class EmployeeListActivity : AppCompatActivity() {
                 filteredEmployeeList.addAll(employeeList)
                 employeeListAdapter.notifyDataSetChanged()
             }
-            .addOnFailureListener {
-                Toast.makeText(this@EmployeeListActivity, "Failed to load employee data", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { e ->
+                Toast.makeText(
+                    this@EmployeeListActivity,
+                    "Failed to load employee data: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 
@@ -100,7 +104,7 @@ class EmployeeListActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK) {
+        if (requestCode == 1 && resultCode == RESULT_OK) {
             fetchEmployeeData() // Reload employee list after update or delete
         }
     }
