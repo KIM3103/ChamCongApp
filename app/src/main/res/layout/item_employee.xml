@@ -44,29 +44,6 @@
             android:textSize="14sp"
             android:layout_marginBottom="4dp" />
 
-        <TextView
-            android:id="@+id/employeePhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Phone Number"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/employeeURL"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Url"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/employeeCCCD"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CCCD"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
 
         <TextView
             android:id="@+id/employeeGender"
@@ -76,12 +53,6 @@
             android:textSize="14sp"
             android:layout_marginBottom="4dp" />
 
-        <TextView
-            android:id="@+id/employeeRole"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Role"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
+
     </LinearLayout>
 </LinearLayout>

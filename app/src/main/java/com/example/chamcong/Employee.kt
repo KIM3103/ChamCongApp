@@ -8,7 +8,8 @@ data class Employee(
     val gender: String = "",
     val role: String = "",
     val picture: String = "",
-    val email: String = ""
+    val email: String = "",
+    val password: String = ""
 )
 
 

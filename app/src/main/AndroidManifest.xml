@@ -66,6 +66,10 @@
             android:exported="true"  >
 
         </activity>
+        <activity android:name=".AddEmployeeActivity"
+            android:exported="true">
+
+        </activity>
     </application>
 
 </manifest>
