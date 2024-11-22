@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Employee Info Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/ivEmployeePicture"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tvEmployeeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Employee Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tvEmployeeEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/tvEmployeePosition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Position"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <!-- Function Buttons -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp">
+
+        <!-- Total Working Days -->
+        <LinearLayout
+            android:id="@+id/totalWorkingDays"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng ngày công"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <!-- Total Leave Days -->
+        <LinearLayout
+            android:id="@+id/totalLeaveDays"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng ngày nghỉ phép"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <!-- Total Late Times -->
+        <LinearLayout
+            android:id="@+id/totalLateTimes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đi muộn"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <!-- Total Early Leaves -->
+        <LinearLayout
+            android:id="@+id/totalEarlyLeaves"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Về sớm"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center" />
+        </LinearLayout>
+    </GridLayout>
+</LinearLayout>
