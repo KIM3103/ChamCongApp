@@ -42,12 +42,11 @@ class TotalWorkActivity : AppCompatActivity() {
         findViewById<View>(R.id.totalLeaveDays).setOnClickListener {
             navigateToDetail(LeaveDaysActivity::class.java, employeeName)
         }
-        findViewById<View>(R.id.totalLateTimes).setOnClickListener {
-            navigateToDetail(LateTimesActivity::class.java, employeeName)
+
+        findViewById<View>(R.id.btnBack).setOnClickListener {
+            finish() // Kết thúc activity hiện tại và quay lại trang trước
         }
-        findViewById<View>(R.id.totalEarlyLeaves).setOnClickListener {
-            navigateToDetail(EarlyLeaveActivity::class.java, employeeName)
-        }
+
     }
 
     private fun navigateToDetail(activityClass: Class<*>, employeeName: String?) {

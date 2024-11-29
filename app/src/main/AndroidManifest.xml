@@ -21,18 +21,13 @@
         <activity
             android:name=".LeaveRequestActivity"
             android:exported="true" />
-        <activity
-            android:name=".EarlyLeaveActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LateTimesActivity"
-            android:exported="false" />
+
         <activity
             android:name=".LeaveDaysActivity"
             android:exported="false" />
         <activity
             android:name=".WorkingDaysActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".TotalWorkActivity"
             android:exported="true" />

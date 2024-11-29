@@ -4,10 +4,30 @@
     <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
     <string name="leave_request_details">Tên: %1$s\nVị trí: %2$s\nNgày bắt đầu: %3$s\nNgày kết thúc: %4$s\nLý do: %5$s\nTrạng thái: %6$s\nThời gian nộp: %7$s</string>
 
+    <color name="colorCheckedIn">#4CAF50</color>  <!-- Xanh -->
+    <color name="colorLate">#FFEB3B</color>      <!-- Vàng -->
+    <color name="colorNoCheckIn">#F44336</color>  <!-- Đỏ -->
+
     <!-- Thêm mảng giới tính -->
     <string-array name="gender_array">
         <item>Nam</item>
         <item>Nữ</item>
         <item>Khác</item>
     </string-array>
+
+    <string-array name="months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
 </resources>
