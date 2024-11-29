@@ -66,7 +66,11 @@ class AllTimeActivity : AppCompatActivity() {
                 employeeList.clear()
                 for (document in result) {
                     val employee = document.toObject(Employee::class.java)
-                    employee?.let { employeeList.add(it) }
+
+                    // Kiểm tra nếu vai trò là "user" hoặc nếu có trường isAdmin: if (!employee?.isAdmin)
+                    if (employee?.role == "user") {  // Hoặc dùng if (!employee?.isAdmin) nếu dùng boolean
+                        employee?.let { employeeList.add(it) }
+                    }
                 }
                 filteredEmployeeList.clear()
                 filteredEmployeeList.addAll(employeeList)

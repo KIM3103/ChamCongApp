@@ -88,40 +88,16 @@
                 android:layout_gravity="center" />
         </LinearLayout>
 
-        <!-- Total Late Times -->
-        <LinearLayout
-            android:id="@+id/totalLateTimes"
-            android:layout_width="0dp"
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:padding="8dp">
+            android:text="Quay lại"
+            android:layout_gravity="start"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đi muộn"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-        </LinearLayout>
 
-        <!-- Total Early Leaves -->
-        <LinearLayout
-            android:id="@+id/totalEarlyLeaves"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Về sớm"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_gravity="center" />
-        </LinearLayout>
     </GridLayout>
 </LinearLayout>
