@@ -82,27 +82,31 @@ class WorkingDaysActivity : AppCompatActivity() {
             time = SimpleDateFormat("yyyy-MM", Locale.getDefault()).parse(selectedMonth)!!
         }.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-        val startDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse("$selectedMonth-01")
-        val endDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse("$selectedMonth-31")
+        // Cấu trúc ngày bắt đầu và kết thúc trong tháng
+        val startDate = "$selectedMonth-01" // Ngày đầu tháng
+        val endDate = "$selectedMonth-${String.format("%02d", daysInMonth)}" // Ngày cuối tháng
 
-        // Convert to Timestamp
-        val startTimestamp = Timestamp(startDate)
-        val endTimestamp = Timestamp(endDate)
+        Log.d("DEBUG", "Start Date: $startDate, End Date: $endDate")
 
+        // Truy vấn dữ liệu từ Firestore với kiểu dữ liệu String
         firestore.collection("CheckIn")
             .whereEqualTo("email", email)
-            .whereGreaterThanOrEqualTo("date", startTimestamp)
-            .whereLessThanOrEqualTo("date", endTimestamp)
+            .whereGreaterThanOrEqualTo("date", startDate) // So sánh theo định dạng chuỗi
+            .whereLessThanOrEqualTo("date", endDate) // So sánh theo định dạng chuỗi
             .get()
             .addOnSuccessListener { result ->
+                Log.d("DEBUG", "Query result: ${result.size()} documents found.")
                 if (result.isEmpty) {
-                    Log.d("DEBUG", "No data found for this month.")
+                    Log.d("DEBUG", "Không có dữ liệu cho tháng này.")
                     updatePieChart(0, daysInMonth)
                 } else {
-                    Log.d("DEBUG", "Data fetched successfully: ${result.size()} documents.")
+                    // Kiểm tra xem có tài liệu nào không
+                    for (document in result) {
+                        Log.d("DEBUG", "Document: ${document.data}")
+                    }
                     val daysWorked = result.documents.count { document ->
-                        val checkInTime = document.getString("checkInTime")
-                        Log.d("DEBUG", "Document: $document, checkInTime: $checkInTime")
+                        val checkInTime = document.getString("checkInTime") // Kiểm tra thời gian check-in
+                        Log.d("DEBUG", "checkInTime: $checkInTime")
                         checkInTime != null && checkInTime.isNotEmpty() // Kiểm tra checkInTime hợp lệ
                     }
                     val daysNotWorked = daysInMonth - daysWorked
@@ -110,11 +114,13 @@ class WorkingDaysActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("DEBUG", "Error fetching data: ${e.message}")
+                Log.e("DEBUG", "Lỗi khi lấy dữ liệu: ${e.message}")
                 Toast.makeText(this, "Lỗi khi lấy dữ liệu chấm công: ${e.message}", Toast.LENGTH_SHORT).show()
                 updatePieChart(0, daysInMonth)
             }
     }
+
+
 
     private fun updatePieChart(daysWorked: Int, daysNotWorked: Int) {
         try {
