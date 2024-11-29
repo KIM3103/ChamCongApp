@@ -51,11 +51,11 @@ class AttendanceListActivity : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-//
-//                R.id.DSNhanVien -> {
-//                    startActivity(Intent(this, AttendanceListActivity::class.java))
-//                    true
-//                }
+
+                R.id.DSNhanVien -> {
+                    startActivity(Intent(this, EmployeeListActivity::class.java))
+                    true
+                }
 
                 R.id.DSTanCa -> {
                     startActivity(Intent(this, CheckoutListActivity::class.java))

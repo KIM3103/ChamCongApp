@@ -9,6 +9,7 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class EmployeeListActivity : AppCompatActivity() {
@@ -24,10 +25,12 @@ class EmployeeListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_employee_list)
 
+        // Khởi tạo các view
         employeeListView = findViewById(R.id.employeeListView)
         searchEmployeeEditText = findViewById(R.id.searchEmployee)
         val addEmployeeButton: Button = findViewById(R.id.addEmployeeButton)
 
+        // Khởi tạo danh sách nhân viên
         employeeList = mutableListOf()
         filteredEmployeeList = mutableListOf()
 
@@ -63,6 +66,28 @@ class EmployeeListActivity : AppCompatActivity() {
         addEmployeeButton.setOnClickListener {
             val intent = Intent(this, AddEmployeeActivity::class.java)
             startActivityForResult(intent, 1)
+        }
+
+        // Khởi tạo BottomNavigationView và xử lý sự kiện chọn mục
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+
+                R.id.DSNhanVien -> {
+                    startActivity(Intent(this, EmployeeListActivity::class.java))
+                    true
+                }
+
+                R.id.DSChamCong -> {
+                    startActivity(Intent(this, AttendanceListActivity::class.java))
+                    true
+                }
+                R.id.DSTanCa -> {
+                    startActivity(Intent(this, CheckoutListActivity::class.java))
+                    true
+                }
+                else -> false
+            }
         }
     }
 
