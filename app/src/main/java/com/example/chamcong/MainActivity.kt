@@ -39,12 +39,12 @@ class MainActivity : AppCompatActivity() {
         tvCCCD = findViewById(R.id.tvCCCD)
         tvPosition = findViewById(R.id.tvPosition)
         tvGender = findViewById(R.id.tvGender)
-        tvName=findViewById(R.id.tvName)
+        tvName = findViewById(R.id.tvName)
         btnLogout = findViewById(R.id.btn_logout) // Liên kết nút Đăng xuất
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-
                 R.id.TrangChu -> {
                     startActivity(Intent(this, CheckInActivity::class.java))
                     true
@@ -57,10 +57,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, LeaveHistoryActivity::class.java))
                     true
                 }
-//                R.id.TongCong -> {
-//                    startActivity(Intent(this, AdminActivity::class.java))
-//                    true
-//                }
                 R.id.TaiKhoan -> {
                     startActivity(Intent(this, MainActivity::class.java))
                     true
@@ -68,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
         // Lấy thông tin email của người dùng đã đăng nhập
         val user = auth.currentUser
         if (user != null) {
@@ -82,7 +79,6 @@ class MainActivity : AppCompatActivity() {
         btnLogout.setOnClickListener {
             logout() // Gọi hàm logout khi nhấn nút Đăng xuất
         }
-
     }
 
     // Hàm đăng xuất người dùng
@@ -116,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                     tvCCCD.text = "CCCD/CMND: $cccd"
                     tvPosition.text = "Vị trí: $position"
                     tvGender.text = "Giới tính: $gender"
-                    tvName.text= "Họ và Tên: $name"
+                    tvName.text = "Họ và Tên: $name"
 
                     // Tải hình ảnh đại diện bằng Glide
                     Glide.with(this)
