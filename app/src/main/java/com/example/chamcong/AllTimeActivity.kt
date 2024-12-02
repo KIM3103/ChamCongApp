@@ -26,6 +26,8 @@ class AllTimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_time)
 
+        //tongcong admin
+
         employeeListView = findViewById(R.id.employeeListView)
         searchEmployeeEditText = findViewById(R.id.searchEmployee)
         employeeList = mutableListOf()
