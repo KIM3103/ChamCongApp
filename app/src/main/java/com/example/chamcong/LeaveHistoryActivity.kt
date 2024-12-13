@@ -29,6 +29,33 @@ class LeaveHistoryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_leave_history)
 
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.TrangChu -> {
+                    startActivity(Intent(this, CheckInActivity::class.java))
+                    true
+                }
+                R.id.DonNghi -> {
+                    startActivity(Intent(this, LeaveRequestActivity::class.java))
+                    true
+                }
+                R.id.TongCong -> {
+                    startActivity(Intent(this, TotalWorkActivity::class.java))
+                    true
+                }
+                R.id.LichSu -> {
+                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+                    true
+                }
+                R.id.TaiKhoan -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
+
         // Firebase instances
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
@@ -76,7 +103,7 @@ class LeaveHistoryActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { leaveSnapshot ->
                     for (document in leaveSnapshot) {
-                        val date = document.getString("date") ?: continue
+                        val date = document.getString("startDate") ?: continue
                         dateWithData.add(date)
                     }
 
@@ -111,7 +138,7 @@ class LeaveHistoryActivity : AppCompatActivity() {
             // Lịch sử nghỉ phép cho ngày đã chọn
             firestore.collection("leaveRequests")
                 .whereEqualTo("employeeId", currentUserEmail)
-                .whereEqualTo("date", date)
+                .whereEqualTo("startDate", date)
                 .get()
                 .addOnSuccessListener { leaveSnapshot ->
                     if (!leaveSnapshot.isEmpty) {
@@ -144,8 +171,6 @@ class LeaveHistoryActivity : AppCompatActivity() {
                 .addOnFailureListener { exception ->
                     Toast.makeText(this, "Lỗi khi tải lịch sử nghỉ phép: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
-        } else {
-            Toast.makeText(this, "Người dùng chưa đăng nhập", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -208,6 +233,10 @@ class LeaveHistoryActivity : AppCompatActivity() {
         detailLayout.addView(detailTextView)
     }
 }
+
+
+
+
 
 
 

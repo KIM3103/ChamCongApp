@@ -9,6 +9,9 @@
     <item android:title="Tan Ca"
         android:id="@+id/DSTanCa"
         android:icon="@drawable/baseline_output_24"/>
+    <item android:title="Tổng công"
+        android:id="@+id/DSTongCong"
+        android:icon="@drawable/baseline_app_registration_24"/>
     <item android:title="Tài Khoản"
         android:id="@+id/TaiKhoanAd"
         android:icon="@drawable/baseline_person_outline_24"/>

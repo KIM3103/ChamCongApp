@@ -33,11 +33,11 @@ class EmployeeAdapter(private val context: Context, private val employeeList: Li
 
         val employee = employeeList[position]
 
-        // Load image using Picasso with error handling and apply circle transformation
+        // Load image using Picasso with error handling and apply circle crop transformation
         if (employee.picture.isNotEmpty()) {
             Picasso.get()
                 .load(employee.picture)
-                .transform(CircleTransform()) // Apply circle transformation
+                .transform(CircleCrop()) // Apply the circle crop transformation
                 .placeholder(R.drawable.ic_avatar_placeholder)
                 .error(R.drawable.ic_avatar_placeholder) // Set fallback image on error
                 .into(holder.imageView)
@@ -62,9 +62,9 @@ class EmployeeAdapter(private val context: Context, private val employeeList: Li
         val genderTextView: TextView = view.findViewById(R.id.employeeGender)
     }
 
-    // Circle transformation class to crop the image into a circle
-    class CircleTransform : Transformation {
-        override fun key(): String = "circle"
+    // Circle crop transformation class to crop the image into a circle
+    class CircleCrop : Transformation {
+        override fun key(): String = "circle_crop"
 
         override fun transform(source: android.graphics.Bitmap): android.graphics.Bitmap {
             val size = Math.min(source.width, source.height)
@@ -90,3 +90,6 @@ class EmployeeAdapter(private val context: Context, private val employeeList: Li
         }
     }
 }
+
+
+

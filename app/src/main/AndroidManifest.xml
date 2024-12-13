@@ -19,13 +19,18 @@
         android:theme="@style/Theme.ChamCong"
         tools:targetApi="31">
         <activity
+            android:name=".AcceptLeaveRequestActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".TotalWorkActivity2"
+            android:exported="true" />
+        <activity
             android:name=".TotalWorkActivity"
             android:exported="true" />
         <activity
             android:name=".LeaveRequestActivity"
             android:exported="true" />
-
-
         <activity
             android:name=".AllTimeActivity"
             android:exported="true" />

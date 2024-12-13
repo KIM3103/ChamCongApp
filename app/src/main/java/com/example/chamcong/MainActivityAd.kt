@@ -1,4 +1,5 @@
 package com.example.chamcong
+
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -6,11 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivityAd : AppCompatActivity() {
     private lateinit var imgProfilePicture: ImageView
@@ -32,18 +32,20 @@ class MainActivityAd : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-
-               R.id.DSNhanVien -> {
+                R.id.DSNhanVien -> {
                     startActivity(Intent(this, EmployeeListActivity::class.java))
                     true
                 }
-
                 R.id.DSChamCong -> {
                     startActivity(Intent(this, AttendanceListActivity::class.java))
                     true
                 }
                 R.id.DSTanCa -> {
                     startActivity(Intent(this, CheckoutListActivity::class.java))
+                    true
+                }
+                R.id.DSTongCong -> {
+                    startActivity(Intent(this, AllTimeActivity::class.java))
                     true
                 }
                 else -> false
@@ -80,13 +82,24 @@ class MainActivityAd : AppCompatActivity() {
         }
     }
 
-    // Hàm đăng xuất người dùng
+    // Hàm đăng xuất người dùng với xác nhận
     private fun logout() {
-        auth.signOut()
-        val intent = Intent(this@MainActivityAd, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        finish()
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        builder.setTitle("Xác nhận đăng xuất")
+        builder.setMessage("Bạn có chắc chắn muốn đăng xuất không?")
+        builder.setPositiveButton("Có") { _, _ ->
+            // Xử lý đăng xuất
+            auth.signOut()
+            val intent = Intent(this@MainActivityAd, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            finish()
+            Toast.makeText(this, "Đăng xuất thành công", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("Không") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.create().show()
     }
 
     // Hàm tải thông tin người dùng từ Firestore
@@ -124,5 +137,4 @@ class MainActivityAd : AppCompatActivity() {
                 Toast.makeText(this, "Không thể tải dữ liệu người dùng", Toast.LENGTH_SHORT).show()
             }
     }
-
 }

@@ -76,10 +76,10 @@ class CheckInActivity : AppCompatActivity() {
                     startActivity(Intent(this, LeaveHistoryActivity::class.java))
                     true
                 }
-//                R.id.TongCong -> {
-//                    startActivity(Intent(this, AdminActivity::class.java))
-//                    true
-//                }
+                R.id.TongCong -> {
+                    startActivity(Intent(this, TotalWorkActivity::class.java))
+                    true
+                }
                 R.id.TaiKhoan -> {
                     startActivity(Intent(this, MainActivity::class.java))
                     true

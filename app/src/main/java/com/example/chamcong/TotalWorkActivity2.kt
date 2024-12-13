@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class TotalWorkActivity : AppCompatActivity() {
+class TotalWorkActivity2 : AppCompatActivity() {
 
     private lateinit var spinnerMonth: Spinner
     private lateinit var btnTotalWork: Button
@@ -23,42 +23,37 @@ class TotalWorkActivity : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private val dataList = mutableListOf<String>()
+    private val leaveRequestList = mutableListOf<LeaveRequest>()
     private val calendar = Calendar.getInstance()
     private var targetEmail: String? = null // Email của user hoặc nhân viên được chọn
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_total_work)
+        setContentView(R.layout.activity_total_work2)
 
+        // Khởi tạo BottomNavigationView và xử lý sự kiện chọn mục
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
-
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.TrangChu -> {
-                    startActivity(Intent(this, CheckInActivity::class.java))
+                R.id.DSNhanVien -> {
+                    startActivity(Intent(this, EmployeeListActivity::class.java))
                     true
                 }
-                R.id.DonNghi -> {
-                    startActivity(Intent(this, LeaveRequestActivity::class.java))
+                R.id.DSTongCong -> {
+                    startActivity(Intent(this, AllTimeActivity::class.java))
                     true
                 }
-                R.id.LichSu -> {
-                    startActivity(Intent(this, LeaveHistoryActivity::class.java))
+                R.id.DSTanCa -> {
+                    startActivity(Intent(this, CheckoutListActivity::class.java))
                     true
                 }
-                R.id.TongCong -> {
-                    startActivity(Intent(this, TotalWorkActivity::class.java))
-                    true
-                }
-                R.id.TaiKhoan -> {
-                    startActivity(Intent(this, MainActivity::class.java))
+                R.id.TaiKhoanAd -> {
+                    startActivity(Intent(this, MainActivityAd::class.java))
                     true
                 }
                 else -> false
             }
         }
-
-        //tong cong user
 
         // Initialize Firebase
         firestore = FirebaseFirestore.getInstance()
@@ -87,6 +82,13 @@ class TotalWorkActivity : AppCompatActivity() {
 
         btnTotalLeave.setOnClickListener {
             calculateTotalLeave()
+        }
+
+        // Set click listener for each item in the list view to toggle leave request status
+        listViewDetails.setOnItemClickListener { _, _, position, _ ->
+            if (position > 0) { // To avoid clicking the total count row
+                toggleLeaveRequestStatus(position - 1)  // Corrected here: position - 1 because we are not modifying the first row.
+            }
         }
     }
 
@@ -126,6 +128,7 @@ class TotalWorkActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val workDays = mutableListOf<String>()
 
+                // Duyệt qua từng tài liệu CheckIn và kiểm tra tháng
                 for (document in result) {
                     val date = document.getString("date") ?: continue
                     if (date.startsWith("$year-$selectedMonth")) {
@@ -133,15 +136,18 @@ class TotalWorkActivity : AppCompatActivity() {
                     }
                 }
 
-                if (workDays.isNotEmpty()) {
+                // Tính tổng số ngày làm việc
+                val totalWorkDays = workDays.size
+                if (totalWorkDays > 0) {
                     dataList.clear()
-                    dataList.add("Tổng công làm tháng $selectedMonth: ${workDays.size} ngày")
-                    dataList.addAll(workDays) // Thêm danh sách các ngày làm việc chi tiết
+                    dataList.add("Tổng công làm tháng $selectedMonth: $totalWorkDays ngày")
+                    dataList.addAll(workDays) // Hiển thị thêm các ngày làm việc chi tiết
                 } else {
                     dataList.clear()
                     dataList.add("Không có ngày làm việc trong tháng $selectedMonth")
                 }
 
+                // Hiển thị tổng số ngày làm việc và cập nhật giao diện
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
@@ -163,42 +169,42 @@ class TotalWorkActivity : AppCompatActivity() {
             .whereEqualTo("employeeId", targetEmail)
             .get()
             .addOnSuccessListener { result ->
+                leaveRequestList.clear() // Reset list before adding new data
+                dataList.clear() // Reset dataList before updating
+
                 var leaveRequestCount = 0 // Biến để đếm số lần gửi đơn nghỉ phép trong tháng
-                val leaveRequestDetails = mutableListOf<String>() // Danh sách lưu các chi tiết đơn nghỉ phép
+                val startYearMonth = "$year-$selectedMonth" // Dùng để kiểm tra năm-tháng
 
+                // Duyệt qua các đơn nghỉ phép và kiểm tra tháng
                 for (document in result) {
-                    val startDate = document.getString("startDate") ?: continue
-                    val endDate = document.getString("endDate") ?: continue
+                    val leaveRequest = document.toObject(LeaveRequest::class.java)
+                    val startDateParts = leaveRequest.startDate?.split("/")
+                    val endDateParts = leaveRequest.endDate?.split("/")
 
-                    // Phân tích ngày bắt đầu và kết thúc từ startDate và endDate
-                    val startDateParts = startDate.split("/")
-                    val endDateParts = endDate.split("/")
-
-                    if (startDateParts.size == 3 && endDateParts.size == 3) {
+                    if (startDateParts?.size == 3 && endDateParts?.size == 3) {
                         val startYear = startDateParts[2].toIntOrNull()
                         val startMonth = startDateParts[1].toIntOrNull()
                         val endYear = endDateParts[2].toIntOrNull()
                         val endMonth = endDateParts[1].toIntOrNull()
 
-                        // Kiểm tra nếu năm và tháng của startDate và endDate trùng với năm và tháng đã chọn
+                        // Kiểm tra nếu tháng bắt đầu và tháng kết thúc trong tháng đã chọn
                         if (startYear == year && startMonth == selectedMonth.toInt() &&
                             endYear == year && endMonth == selectedMonth.toInt()) {
-
-                            leaveRequestCount++ // Tăng biến đếm mỗi khi tìm thấy đơn nghỉ phép trong tháng đã chọn
-                            leaveRequestDetails.add("Đơn nghỉ phép từ ngày $startDate đến ngày $endDate") // Thêm chi tiết vào danh sách
+                            leaveRequestCount++
+                            // Thêm thông tin chi tiết vào dataList
+                            dataList.add("Đơn nghỉ phép từ ngày ${leaveRequest.startDate} đến ngày ${leaveRequest.endDate} - Trạng thái: ${leaveRequest.status}")
                         }
                     }
                 }
 
-                // Cập nhật giao diện với số lượng đơn nghỉ phép và các chi tiết đơn
-                dataList.clear()
+                // Tính tổng số đơn nghỉ phép trong tháng và hiển thị ngay
                 if (leaveRequestCount > 0) {
-                    dataList.add("Tổng số đơn nghỉ phép tháng $selectedMonth: $leaveRequestCount đơn")
-                    dataList.addAll(leaveRequestDetails) // Thêm các chi tiết đơn nghỉ phép vào danh sách
+                    dataList.add("Tổng số đơn nghỉ phép trong tháng $selectedMonth: $leaveRequestCount đơn")
                 } else {
                     dataList.add("Không có đơn nghỉ phép trong tháng $selectedMonth")
                 }
 
+                // Cập nhật giao diện
                 adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { e ->
@@ -206,8 +212,50 @@ class TotalWorkActivity : AppCompatActivity() {
             }
     }
 
+    private fun toggleLeaveRequestStatus(position: Int) {
+        // Lấy đơn nghỉ phép từ danh sách
+        val leaveRequest = leaveRequestList[position]
 
+        // Thay đổi trạng thái
+        val newStatus = when (leaveRequest.status) {
+            "pending" -> "accepted"
+            "accepted" -> "disaccepted"
+            else -> "pending"  // Nếu là "disaccepted" thì quay lại "pending"
+        }
+
+        // Cập nhật trạng thái trong Firestore
+        firestore.collection("leaveRequests")
+            .whereEqualTo("employeeId", leaveRequest.employeeId)
+            .whereEqualTo("startDate", leaveRequest.startDate)
+            .whereEqualTo("endDate", leaveRequest.endDate)
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    // Cập nhật trạng thái của đơn nghỉ phép trong Firestore
+                    document.reference.update("status", newStatus)
+                        .addOnSuccessListener {
+                            // Cập nhật trạng thái trong đối tượng LeaveRequest
+                            leaveRequest.status = newStatus
+
+                            // Cập nhật trực tiếp vào dataList (dùng cho ListView)
+                            dataList[position + 1] = "Đơn nghỉ phép từ ngày ${leaveRequest.startDate} đến ngày ${leaveRequest.endDate} - Trạng thái: ${newStatus}"
+
+                            // Notify adapter để làm mới giao diện
+                            adapter.notifyDataSetChanged()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Failed to update status: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
 }
+
+
+
 
 
 

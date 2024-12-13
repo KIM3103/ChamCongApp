@@ -22,25 +22,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="Enter email to search"
+            android:background="@drawable/grey_background"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="8dp"
             android:padding="12dp"
-            />
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
         <!-- Thanh nhập ngày -->
         <EditText
             android:id="@+id/editTextDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="Enter date to search "
+            android:hint="Enter date to search"
+            android:background="@drawable/grey_background"
             app:layout_constraintTop_toBottomOf="@id/editTextEmail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="16dp"
             android:padding="12dp"
-            />
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/darker_gray" />
 
         <!-- ListView để hiển thị dữ liệu -->
         <ListView
@@ -52,7 +56,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:dividerHeight="1dp"
-            android:divider="@android:color/darker_gray" />
+
+            app:cardBackgroundColor="#336999"/>
 
         <!-- Nút Checkout ở cuối màn hình -->
         <Button
@@ -60,6 +65,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Xem danh sách tan ca"
+            android:background="@drawable/black_button_background"
+            android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

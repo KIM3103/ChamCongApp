@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AllTimeActivity : AppCompatActivity() {
@@ -26,7 +27,35 @@ class AllTimeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_time)
 
-        //tongcong admin
+        // Hiển thị list nhân viên, ấn vào từng nhân viên ể xem tổng công (total work activity2)
+        // Khởi tạo BottomNavigationView và xử lý sự kiện chọn mục
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+
+                R.id.DSNhanVien -> {
+                    startActivity(Intent(this, EmployeeListActivity::class.java))
+                    true
+                }
+                R.id.DSChamCong -> {
+                    startActivity(Intent(this, AttendanceListActivity::class.java))
+                    true
+                }
+                R.id.DSTongCong -> {
+                    startActivity(Intent(this, AllTimeActivity::class.java))
+                    true
+                }
+                R.id.DSTanCa -> {
+                    startActivity(Intent(this, CheckoutListActivity::class.java))
+                    true
+                }
+                R.id.TaiKhoanAd -> {
+                    startActivity(Intent(this, MainActivityAd::class.java))
+                    true
+                }
+                else -> false
+            }
+        }
 
         employeeListView = findViewById(R.id.employeeListView)
         searchEmployeeEditText = findViewById(R.id.searchEmployee)
@@ -51,7 +80,7 @@ class AllTimeActivity : AppCompatActivity() {
             val selectedEmployee = filteredEmployeeList[position]
 
             // Navigate to the TotalWorkActivity with selected employee's data
-            val intent = Intent(this, TotalWorkActivity::class.java).apply {
+            val intent = Intent(this, TotalWorkActivity2::class.java).apply {
                 putExtra("EMPLOYEE_NAME", selectedEmployee.name)
                 putExtra("EMPLOYEE_EMAIL", selectedEmployee.email)
                 putExtra("EMPLOYEE_POSITION", selectedEmployee.position)

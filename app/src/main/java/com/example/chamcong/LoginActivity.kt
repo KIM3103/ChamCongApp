@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                 } else if (role == "admin") {
                     // Redirect to AttendanceListActivity if role is admin
-                    val intent = Intent(this@LoginActivity, AttendanceListActivity::class.java)
+                    val intent = Intent(this@LoginActivity, EmployeeListActivity::class.java)
                     startActivity(intent)
                 }
                 finish()
