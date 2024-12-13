@@ -6,6 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- ScrollView to allow scrolling of content -->
+    <android.widget.ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <!-- FrameLayout containing the main content -->
     <FrameLayout
         android:layout_width="match_parent"
@@ -59,7 +64,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:padding="8dp"
-                        android:text="&lt;&lt; Tháng 10 năm 2024 &gt;&gt;"
+                        android:text="&lt;&lt; Tháng 1 năm 2025 &gt;&gt;"
                         android:textSize="16sp" />
 
                     <LinearLayout
@@ -156,7 +161,7 @@
         </LinearLayout>
 
     </FrameLayout>
-
+    </android.widget.ScrollView>
     <!-- Bottom App Bar with Navigation -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

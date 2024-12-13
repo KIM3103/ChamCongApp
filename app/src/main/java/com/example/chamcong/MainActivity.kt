@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -57,6 +56,10 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, LeaveHistoryActivity::class.java))
                     true
                 }
+                R.id.TongCong -> {
+                    startActivity(Intent(this, TotalWorkActivity::class.java))
+                    true
+                }
                 R.id.TaiKhoan -> {
                     startActivity(Intent(this, MainActivity::class.java))
                     true
@@ -86,11 +89,14 @@ class MainActivity : AppCompatActivity() {
         // Đăng xuất người dùng khỏi Firebase
         auth.signOut()
 
-        // Chuyển hướng về màn hình đăng nhập (LoginActivity)
-        val intent = Intent(this@MainActivity, LoginActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Xóa ngăn xếp Activity
-        startActivity(intent)
-        finish() // Đóng MainActivity hiện tại
+        // Kiểm tra nếu người dùng đã đăng xuất thành công
+        if (auth.currentUser == null) {
+            // Chuyển hướng về màn hình đăng nhập (LoginActivity)
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Xóa ngăn xếp Activity
+            startActivity(intent)
+            finish() // Đóng MainActivity hiện tại
+        }
     }
 
     // Hàm tải thông tin người dùng từ Firestore
@@ -106,25 +112,23 @@ class MainActivity : AppCompatActivity() {
                     val gender = document.getString("gender")
                     val imageUrl = document.getString("picture")
                     val name = document.getString("name")
-                    // Cập nhật giao diện với dữ liệu từ Firestore
-                    tvEmail.text = "G-mail: $email"
-                    tvPhone.text = "Số điện thoại: $phone"
-                    tvCCCD.text = "CCCD/CMND: $cccd"
-                    tvPosition.text = "Vị trí: $position"
-                    tvGender.text = "Giới tính: $gender"
-                    tvName.text = "Họ và Tên: $name"
 
-                    // Tải hình ảnh đại diện bằng Glide
-                    Glide.with(this)
-                        .load(imageUrl)
-                        .placeholder(R.drawable.ic_profile_placeholder) // Ảnh tạm khi đang tải
-                        .error(R.drawable.ic_profile_error) // Ảnh lỗi khi không tải được
-                        .into(imgProfilePicture)
+                    // Cập nhật giao diện với dữ liệu người dùng
+                    tvName.text = name
+                    tvPhone.text = phone
+                    tvCCCD.text = cccd
+                    tvPosition.text = position
+                    tvGender.text = gender
+                    tvEmail.text = email
+
+                    // Nếu có ảnh đại diện, tải ảnh từ URL
+                    if (!imageUrl.isNullOrEmpty()) {
+                        Glide.with(this).load(imageUrl).into(imgProfilePicture)
+                    }
                 }
             }
-            .addOnFailureListener { exception ->
-                // Xử lý lỗi nếu truy vấn không thành công
-                Toast.makeText(this, "Không thể tải dữ liệu người dùng", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener {
+                // Xử lý lỗi nếu không thể lấy dữ liệu người dùng
             }
     }
 }

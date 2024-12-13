@@ -77,13 +77,20 @@ class EmployeeListActivity : AppCompatActivity() {
                     startActivity(Intent(this, EmployeeListActivity::class.java))
                     true
                 }
-
                 R.id.DSChamCong -> {
                     startActivity(Intent(this, AttendanceListActivity::class.java))
                     true
                 }
+                R.id.DSTongCong -> {
+                    startActivity(Intent(this, AllTimeActivity::class.java))
+                    true
+                }
                 R.id.DSTanCa -> {
                     startActivity(Intent(this, CheckoutListActivity::class.java))
+                    true
+                }
+                R.id.TaiKhoanAd -> {
+                    startActivity(Intent(this, MainActivityAd::class.java))
                     true
                 }
                 else -> false
