@@ -27,19 +27,18 @@ class AttendanceAdapter(context: Context, private val historyList: List<Attendan
         }
 
         // Set data for ViewHolder
-        viewHolder.tvEmail.text = record?.email
-        viewHolder.tvDate.text = record?.date
         viewHolder.tvCheckInTime.text = record?.checkInTime
+        viewHolder.tvDate.text = record?.date
+        viewHolder.tvEmail.text = record?.email
         viewHolder.tvStatus.text = record?.status
 
         return view
     }
 
-    // ViewHolder class to hold references to the views
     private class ViewHolder(view: View) {
-        val tvEmail: TextView = view.findViewById(R.id.tvEmail)
-        val tvDate: TextView = view.findViewById(R.id.tvDate)
         val tvCheckInTime: TextView = view.findViewById(R.id.tvCheckInTime)
+        val tvDate: TextView = view.findViewById(R.id.tvDate)
+        val tvEmail: TextView = view.findViewById(R.id.tvEmail)
         val tvStatus: TextView = view.findViewById(R.id.tvStatus)
     }
 }

@@ -97,29 +97,37 @@
         android:layout_marginTop="10dp">
 
         <!-- Back Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/backButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Back" />
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_background"
+            android:text="Back"
+            android:textColor="@android:color/white" />
 
         <!-- Save Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/saveButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save" />
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_background"
+            android:text="Save"
+            android:textColor="@android:color/white" />
 
         <!-- Delete Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/deleteButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_background"
             android:text="Delete"
-            android:layout_marginStart="16dp" />
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
 </LinearLayout>

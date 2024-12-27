@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--    Admin xem danh sach tan ca-->
+<!-- Admin xem danh sách tan ca-->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,41 +9,73 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".MainActivityAd">
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Danh sách tan ca nhân viên"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="16dp" />
 
         <!-- Thanh tìm kiếm theo ngày -->
         <EditText
             android:id="@+id/editTextSearchDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search by date " />
+            android:hint="Search by date"
+            android:background="@drawable/grey_background"
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"/>
 
         <!-- Thanh tìm kiếm theo email -->
         <EditText
             android:id="@+id/editTextSearchEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Search by email" />
+            android:hint="Search by email"
+            android:background="@drawable/grey_background"
+            android:padding="12dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="16dp"/>
 
         <!-- ListView -->
         <ListView
             android:id="@+id/listViewCheckout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:dividerHeight="1dp"
+            android:padding="8dp"
+            android:divider="@android:color/darker_gray" />
 
         <!-- Nút quay lại ở cuối trang -->
         <Button
             android:id="@+id/buttonBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quay lại" />
-
+            android:text="Quay lại"
+            android:background="@drawable/black_button_background"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"/>
 
     </LinearLayout>
+
     <!-- BottomAppBar bên trong CoordinatorLayout -->
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"

@@ -11,6 +11,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +22,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:gravity="center">
 
                 <ImageView
                     android:id="@+id/imgProfilePicture"
@@ -29,11 +32,10 @@
                     android:layout_height="120dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:scaleType="centerCrop"
+                    android:layout_marginEnd="60dp"
                     android:background="@drawable/rounded_corners"
                     android:clipToOutline="true"
-                    app:layout_anchor="@id/bottomAppBar"
-                    app:layout_anchorGravity="top|center_horizontal" />
+                    app:layout_anchor="@id/bottomAppBar"/>
 
                 <!-- TextView di chuyển sang phải với khoảng cách -->
                 <TextView
@@ -43,9 +45,8 @@
                     android:text="Đổi ảnh đại diện"
                     android:textSize="18sp"
                     android:textColor="@color/black"
-                    android:layout_marginTop="68dp"
-                    android:layout_marginStart="20dp"
-                android:gravity="end" />
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="60dp" />
 
             </LinearLayout>
 
@@ -187,7 +188,7 @@
 
             <!-- Sign In Button -->
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_out"
+                android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -196,28 +197,8 @@
                 android:text="Đăng xuất"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_change_password"
-                android:background="@drawable/black_button_background"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Đổi mật khẩu"
-                android:textColor="@android:color/white"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_logout"
-                android:background="@drawable/grey_button_background"
-                android:layout_width="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_height="wrap_content"
-                android:text="Đăng xuất"
-                android:textColor="@android:color/black" />
-
         </LinearLayout>
+
     </ScrollView>
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
