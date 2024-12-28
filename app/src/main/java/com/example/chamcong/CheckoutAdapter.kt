@@ -29,7 +29,7 @@ class CheckoutAdapter(context: Context, private val checkoutList: List<Attendanc
         }
 
         // Thiết lập dữ liệu cho ViewHolder
-        viewHolder.checkOutTimeTextView.text = record?.checkInTime // Thay đổi thành checkOutTime nếu cần
+        viewHolder.checkOutTimeTextView.text = record?.checkOutTime // Thay đổi thành checkOutTime nếu cần
         viewHolder.dateTextView.text = record?.date
         viewHolder.emailTextView.text = record?.email
         viewHolder.statusTextView.text = record?.status

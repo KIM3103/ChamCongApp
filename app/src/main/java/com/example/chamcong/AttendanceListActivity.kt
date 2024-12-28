@@ -16,7 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class AttendanceListActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
-    private lateinit var adapter: ArrayAdapter<AttendanceRecord>
+    private lateinit var adapter: AttendanceAdapter
     private val historyList = mutableListOf<AttendanceRecord>() // Danh sách tất cả bản ghi check-in
     private val filteredList = mutableListOf<AttendanceRecord>() // Danh sách đã lọc để hiển thị
     private lateinit var listView: ListView
@@ -26,7 +26,7 @@ class AttendanceListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.listcheckin)  // Đảm bảo sử dụng layout listcheckin
+        setContentView(R.layout.listcheckin)
 
         listView = findViewById(R.id.listView)
         buttonCheckout = findViewById(R.id.buttonCheckout)
@@ -34,7 +34,7 @@ class AttendanceListActivity : AppCompatActivity() {
         editTextDate = findViewById(R.id.editTextDate)
 
         // Thiết lập adapter
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, filteredList)
+        adapter = AttendanceAdapter(this, filteredList)
         listView.adapter = adapter
 
         // Khởi động CheckoutActivity khi nhấn nút
@@ -51,7 +51,6 @@ class AttendanceListActivity : AppCompatActivity() {
         val bottomNavigation: BottomNavigationView = findViewById(R.id.bottomNavigationView)
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
-
                 R.id.DSNhanVien -> {
                     startActivity(Intent(this, EmployeeListActivity::class.java))
                     true
@@ -80,7 +79,6 @@ class AttendanceListActivity : AppCompatActivity() {
     private fun loadCheckInRecords() {
         val attendanceRef = db.collection("CheckIn")
 
-        // Truy xuất tất cả các tài liệu trong collection CheckIn
         attendanceRef.get().addOnCompleteListener { attendanceTask ->
             if (attendanceTask.isSuccessful) {
                 for (record in attendanceTask.result) {
@@ -141,5 +139,5 @@ class AttendanceListActivity : AppCompatActivity() {
 
         adapter.notifyDataSetChanged() // Cập nhật ListView với dữ liệu đã lọc
     }
-
 }
+
